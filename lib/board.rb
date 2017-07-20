@@ -1,10 +1,14 @@
 class Board
+  def initialize
+    @board = Array.new(9)
+  end
+
   def set_mark(space, mark)
-    nil
+    @board[space-1] = mark
   end
 
   def get_mark(space)
-    nil
+    @board[space-1]
   end
 
   def game_over?
