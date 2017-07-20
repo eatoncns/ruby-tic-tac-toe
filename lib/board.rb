@@ -3,6 +3,10 @@ class Board
     nil
   end
 
+  def get_mark(space)
+    nil
+  end
+
   def game_over?
     nil
   end
