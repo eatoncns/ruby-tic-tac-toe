@@ -1,9 +1,8 @@
 require 'game'
-require 'board'
 
 describe Game do
   before(:each) do
-    @board = Board.empty
+    @board = double(:board)
     @player_one = double(:player_one)
     @player_two = double(:player_two)
     @game = Game.new(@board, @player_one, @player_two)
