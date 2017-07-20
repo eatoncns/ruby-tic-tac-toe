@@ -1,10 +1,11 @@
 require 'game'
+require 'board'
 
 describe Game do
   before(:each) do
-    @board = double(:board)
-    @player_one = double(:player_one)
-    @player_two = double(:player_two)
+    @board = instance_double("Board", :set_mark => nil)
+    @player_one = double("player_one", :mark => "X")
+    @player_two = double("player_two", :mark => "Y")
     @game = Game.new(@board, @player_one, @player_two)
   end
 
@@ -25,6 +26,13 @@ describe Game do
 
         4.times { @game.take_turn() }
       end
+    end
+
+    it "should set mark in chosen space on board" do
+      space = Object.new
+      allow(@player_one).to receive(:choose_space).and_return(space)
+      expect(@board).to receive(:set_mark).with(space, "X")
+      @game.take_turn()
     end
   end
 

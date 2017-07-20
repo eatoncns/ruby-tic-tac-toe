@@ -6,7 +6,8 @@ class Game
   end
   
   def take_turn
-    @current_player.choose_space(@board)
+    space = @current_player.choose_space(@board)
+    @board.set_mark(space, @current_player.mark)
     @current_player, @next_player = @next_player, @current_player
   end
 
