@@ -7,5 +7,5 @@ RSpec::Core::RakeTask.new(:spec)
 
 desc "Run the specs whenever a relevant file changes."
 task :watch do
-  system "watchr watch.rb"
+  system "bundle exec guard"
 end
