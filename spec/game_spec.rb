@@ -31,7 +31,7 @@ describe Game do
     it "should set mark in chosen space on board" do
       space = Object.new
       allow(@player_one).to receive(:choose_space).and_return(space)
-      expect(@board).to receive(:set_mark).with(space, "X")
+      expect(@board).to receive(:set_mark).with(space, @player_one.mark)
       @game.take_turn()
     end
   end
