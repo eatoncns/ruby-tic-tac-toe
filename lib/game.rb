@@ -9,4 +9,8 @@ class Game
     @current_player.choose_space(@board)
     @current_player, @next_player = @next_player, @current_player
   end
+
+  def game_over?
+    @board.game_over?
+  end
 end

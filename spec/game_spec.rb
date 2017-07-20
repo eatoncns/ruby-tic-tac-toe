@@ -28,4 +28,20 @@ describe Game do
       end
     end
   end
+
+  describe "#game_over?" do
+    context "when board is not in game over state" do
+      it "should return false" do
+        allow(@board).to receive(:game_over?).and_return(false)
+        expect(@game.game_over?).to be false
+      end
+    end
+
+    context "when board is in game over state" do
+      it "should return true" do
+        allow(@board).to receive(:game_over?).and_return(true)
+        expect(@game.game_over?).to be true
+      end
+    end
+  end
 end
