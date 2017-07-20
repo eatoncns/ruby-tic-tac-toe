@@ -16,5 +16,16 @@ describe Game do
         @game.take_turn()
       end
     end
-  end 
+
+    context "when called multiple times" do
+      it "should alternate between players" do
+        expect(@player_one).to receive(:choose_space).ordered
+        expect(@player_two).to receive(:choose_space).ordered
+        expect(@player_one).to receive(:choose_space).ordered
+        expect(@player_two).to receive(:choose_space).ordered
+
+        4.times { @game.take_turn() }
+      end
+    end
+  end
 end
