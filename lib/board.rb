@@ -1,7 +1,7 @@
 class Board
   def initialize(dimension = 3) 
     @num_spaces = dimension*dimension
-    @board = Array.new(@num_spaces)
+    @board = Array.new(@num_spaces, :empty)
   end
 
   def all_spaces
@@ -21,6 +21,6 @@ class Board
   end
 
   def game_over?
-    @board.all?
+    @board.all? { |mark| mark != :empty }
   end
 end
