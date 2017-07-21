@@ -1,5 +1,4 @@
 require 'board'
-require 'space'
 
 describe Board do
 
@@ -8,7 +7,7 @@ describe Board do
   describe "#get_mark" do
     context "with a new board" do
       it "should return nil for all spaces" do
-        for space in Space.all
+        for space in board.all_spaces
           expect(board.get_mark(space)).to be_nil
         end
       end
@@ -16,7 +15,7 @@ describe Board do
 
     context "when #set_mark has been called for space" do
       it "should return the same mark" do
-        space = Space.random
+        space = board.random_space
         board.set_mark(space, "X")
         expect(board.get_mark(space)).to eq "X"
       end

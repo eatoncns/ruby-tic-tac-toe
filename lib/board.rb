@@ -1,6 +1,15 @@
 class Board
-  def initialize
-    @board = Array.new(9)
+  def initialize(dimension = 3) 
+    @num_spaces = dimension*dimension
+    @board = Array.new(@num_spaces)
+  end
+
+  def all_spaces
+    (1..@num_spaces).to_a
+  end
+
+  def random_space
+    all_spaces.sample
   end
 
   def set_mark(space, mark)
