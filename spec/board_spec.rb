@@ -37,5 +37,14 @@ describe Board do
         expect(drawn_board.game_over?).to be true
       end
     end
+
+    Board.new.rows.each do |row|
+      context "when player has taken all of row #{row}" do
+        it "will return true" do
+          row.each { |space| board.set_mark(space, :X) }
+          expect(board.game_over?).to be true
+        end
+      end
+    end
   end
 end
