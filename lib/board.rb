@@ -3,10 +3,10 @@ class Board
   attr_reader :rows
   
   def initialize(dimension = 3) 
-    @num_spaces = dimension*dimension
-    @all_spaces = (1..@num_spaces)
+    num_spaces = dimension*dimension
+    @all_spaces = (1..num_spaces)
     @rows = @all_spaces.each_slice(dimension)
-    @board = Array.new(@num_spaces, :empty)
+    @board = Array.new(num_spaces, :empty)
   end
 
   def random_space
