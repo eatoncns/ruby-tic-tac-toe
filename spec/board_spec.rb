@@ -3,6 +3,9 @@ require 'board'
 describe Board do
 
   let(:board) { Board.new }
+  let(:drawn_board) { Board.from_a [:X, :X, :Y,
+                                    :X ,:Y, :X,
+                                    :Y, :X, :Y] }
 
   describe "#get_mark" do
     context "with a new board" do
@@ -31,10 +34,7 @@ describe Board do
 
     context "when game is drawn" do
       it "will return true" do
-        for space in board.all_spaces
-          board.set_mark(space, :X)
-        end
-        expect(board.game_over?).to be true
+        expect(drawn_board.game_over?).to be true
       end
     end
   end
