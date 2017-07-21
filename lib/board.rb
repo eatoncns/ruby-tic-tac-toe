@@ -37,9 +37,8 @@ class Board
   private
     def winning_row?
       rows.any? do |row|
-        marks = row.collect { |space| get_mark(space) }
-        player_marks = marks.select { |mark| mark != :empty }
-        player_marks.uniq.count == 1
+        first_mark = get_mark(row[0])
+        first_mark != :empty && row.all? { |space| get_mark(space) == first_mark }
       end
     end
 
