@@ -21,6 +21,6 @@ class Board
   end
 
   def game_over?
-    nil
+    @board.all?
   end
 end

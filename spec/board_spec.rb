@@ -21,4 +21,21 @@ describe Board do
       end
     end
   end
+
+  describe "#game_over?" do
+    context "with a new board" do
+      it "should return false" do
+        expect(board.game_over?).to be false
+      end
+    end
+
+    context "when game is drawn" do
+      it "will return true" do
+        for space in board.all_spaces
+          board.set_mark(space, "X")
+        end
+        expect(board.game_over?).to be true
+      end
+    end
+  end
 end
