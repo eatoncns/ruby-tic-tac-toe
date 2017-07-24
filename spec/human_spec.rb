@@ -7,6 +7,12 @@ describe Human do
   let(:output) { StringIO.new }
   let(:player) { Human.new(input, output) }
   let(:board) { Board.new }
+
+  def run_for_input(input)
+    input = StringIO.new(input)
+    player = Human.new(input, output)
+    player.choose_space(board)
+  end
   
   describe "#choose_space" do
     it "should display current board state" do
@@ -36,16 +42,12 @@ describe Human do
     ["aofb\n", "\n", "3.5\n", "7haf\n", "-1\n", "0\n", "10\n"].each do |invalid_input|
       context "when input space is not valid (#{invalid_input})" do
         it "should prompt again" do
-          input = StringIO.new(invalid_input + valid_input)
-          player = Human.new(input, output)
-          player.choose_space(board)
+          run_for_input(invalid_input + valid_input)
           expect(output.string.scan("Choose space").size).to eq 2
         end
 
         it "should return valid value" do
-          input = StringIO.new(invalid_input + valid_input)
-          player = Human.new(input, output)
-          expect(player.choose_space(board)).to eq 5
+          expect(run_for_input(invalid_input + valid_input)).to eq 5
         end
       end
     end
@@ -53,17 +55,13 @@ describe Human do
     context "when input space is already taken" do
       it "should prompt again" do
         board.set_mark(1, "X")
-        input = StringIO.new("1\n5\n")
-        player = Human.new(input, output)
-        player.choose_space(board)
+        run_for_input("1\n5\n")
         expect(output.string.scan("Choose space").size).to eq 2
       end
 
       it "should return valid value" do
         board.set_mark(1, "X")
-        input = StringIO.new("1\n5\n")
-        player = Human.new(input, output)
-        expect(player.choose_space(board)).to eq 5
+        expect(run_for_input("1\n5\n")).to eq 5
       end
     end
   end
