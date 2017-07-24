@@ -5,12 +5,12 @@ describe Human do
   let(:valid_input) { "5\n" }
   let(:input) { StringIO.new(valid_input) }
   let(:output) { StringIO.new }
-  let(:player) { Human.new(input, output) }
+  let(:player) { Human.new("X", input, output) }
   let(:board) { Board.new }
 
   def run_for_input(input)
     input = StringIO.new(input)
-    player = Human.new(input, output)
+    player = Human.new("X", input, output)
     player.choose_space(board)
   end
   

@@ -1,11 +1,12 @@
 require 'game'
 require 'board'
+require 'human'
 
 describe Game do
   before(:each) do
     @board = instance_double("Board", :set_mark => nil)
-    @player_one = double("player_one", :mark => "X")
-    @player_two = double("player_two", :mark => "Y")
+    @player_one = instance_double("Human", :mark => "X")
+    @player_two = double("Human", :mark => "Y")
     @game = Game.new(@board, @player_one, @player_two)
   end
 

@@ -1,5 +1,8 @@
 class Human
-  def initialize(input = $stdin, output = $stdout)
+  attr_reader :mark
+
+  def initialize(mark, input = $stdin, output = $stdout)
+    @mark = mark
     @input = input
     @output = output
   end 
