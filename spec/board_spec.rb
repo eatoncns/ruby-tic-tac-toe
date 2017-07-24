@@ -38,7 +38,7 @@ describe Board do
       end
     end
 
-    Board.new.rows.each do |row|
+    [[1, 2, 3], [4, 5, 6], [7, 8, 9]].each do |row|
       context "when player has taken all of row #{row}" do
         it "will return true" do
           row.each { |space| board.set_mark(space, :X) }

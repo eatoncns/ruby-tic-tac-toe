@@ -3,9 +3,9 @@ class Board
   attr_reader :rows
   
   def initialize(dimension = 3) 
+    @dimension = dimension
     num_spaces = dimension*dimension
     @all_spaces = (1..num_spaces)
-    @rows = @all_spaces.each_slice(dimension)
     @board = Array.new(num_spaces, :empty)
   end
 
@@ -35,10 +35,14 @@ class Board
   end
 
   private
+    def rows
+      @board.each_slice(@dimension)
+    end
+
     def winning_row?
       rows.any? do |row|
-        first_mark = get_mark(row[0])
-        first_mark != :empty && row.all? { |space| get_mark(space) == first_mark }
+        first_mark = row[0]
+        first_mark != :empty && row.all? { |mark| mark == first_mark }
       end
     end
 
