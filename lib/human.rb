@@ -6,7 +6,7 @@ class Human
 
   def choose_space(board)
     display_board(board)
-    prompt_for_space(board.all_spaces.last)
+    prompt_for_space(board.size)
     get_chosen_space
   end
 

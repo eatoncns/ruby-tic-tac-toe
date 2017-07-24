@@ -1,15 +1,14 @@
 class Board
-  attr_reader :all_spaces
+  attr_reader :size
   
   def initialize(dimension = 3) 
     @dimension = dimension
-    num_spaces = dimension*dimension
-    @all_spaces = (1..num_spaces)
-    @board = Array.new(num_spaces, "")
+    @size = dimension*dimension
+    @board = Array.new(@size, "")
   end
 
   def random_space
-    all_spaces.to_a.sample
+    (1..@size).to_a.sample
   end
 
   def set_mark(space, mark)
@@ -41,12 +40,12 @@ class Board
 
   private
     def valid_space(space)
-      @all_spaces.include?(space)
+      space >= 1 && space <= @size
     end
 
     def validate_space(space)
       if !valid_space(space)
-        raise(IndexError, "space #{space} out of board bounds: #{@all_spaces}")
+        raise(IndexError, "space #{space} out of board bounds: (1..#{@size})")
       end
     end
 

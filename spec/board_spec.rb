@@ -13,7 +13,7 @@ describe Board do
   describe "#get_mark" do
     context "with a new board" do
       it "should return empty for all spaces" do
-        for space in board.all_spaces
+        for space in (1..board.size)
           expect(board.get_mark(space).empty?).to eq true
         end
       end
@@ -76,4 +76,6 @@ describe Board do
       end
     end
   end
+
+  describe 
 end
