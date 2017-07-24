@@ -45,9 +45,12 @@ class Human
       prompt_for_space(max_space)
       input_string = @input.gets.chomp
       begin
-        Integer(input_string)
+        space = Integer(input_string)
+        if space >= 1 && space <= max_space
+          return space
+        end
       rescue ArgumentError, TypeError
-        get_chosen_space(max_space)
       end
+      get_chosen_space(max_space)
     end
 end

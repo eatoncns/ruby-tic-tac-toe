@@ -33,7 +33,7 @@ describe Human do
       end
     end
 
-    ["aofb\n", "\n", "3.5\n", "7haf\n"].each do |invalid_input|
+    ["aofb\n", "\n", "3.5\n", "7haf\n", "-1\n", "0\n", "10\n"].each do |invalid_input|
       context "when input space is not valid (#{invalid_input})" do
         it "should prompt again" do
           input = StringIO.new(invalid_input + valid_input)
