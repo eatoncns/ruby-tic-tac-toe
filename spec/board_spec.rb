@@ -25,12 +25,22 @@ describe Board do
     end
 
     [-3, 0, 10].each do |space|
-      context "with invalid space #{space}" do
+      context "with invalid space #{space} input" do
         it "should raise an IndexError" do
           expect{board.get_mark(space)}.to raise_error(IndexError)
         end
       end
     end
+  end
+
+  describe "#set_mark" do
+    [-3, 0, 10].each do |space|
+      context "with invalid space #{space} input" do
+        it "should raise an IndexError" do
+          expect{board.set_mark(space, :X)}.to raise_error(IndexError)
+        end
+      end
+    end 
   end
 
   describe "#game_over?" do

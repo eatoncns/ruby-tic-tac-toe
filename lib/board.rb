@@ -13,13 +13,12 @@ class Board
   end
 
   def set_mark(space, mark)
+    validate_space(space)
     @board[space-1] = mark
   end
 
   def get_mark(space)
-    if !@all_spaces.include?(space)
-      raise(IndexError, "space #{space} out of board bounds: #{@all_spaces}")
-    end
+    validate_space(space)
     @board[space-1]
   end
 
@@ -37,6 +36,16 @@ class Board
   end
 
   private
+    def valid_space(space)
+      @all_spaces.include?(space)
+    end
+
+    def validate_space(space)
+      if !valid_space(space)
+        raise(IndexError, "space #{space} out of board bounds: #{@all_spaces}")
+      end
+    end
+
     def rows
       @board.each_slice(@dimension).to_a
     end
