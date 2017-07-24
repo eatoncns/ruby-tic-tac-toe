@@ -17,6 +17,9 @@ class Board
   end
 
   def get_mark(space)
+    if !@all_spaces.include?(space)
+      raise(IndexError, "space #{space} out of board bounds: #{@all_spaces}")
+    end
     @board[space-1]
   end
 

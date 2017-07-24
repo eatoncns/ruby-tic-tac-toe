@@ -23,6 +23,14 @@ describe Board do
         expect(board.get_mark(space)).to eq :X
       end
     end
+
+    [-3, 0, 10].each do |space|
+      context "with invalid space #{space}" do
+        it "should raise an IndexError" do
+          expect{board.get_mark(space)}.to raise_error(IndexError)
+        end
+      end
+    end
   end
 
   describe "#game_over?" do
