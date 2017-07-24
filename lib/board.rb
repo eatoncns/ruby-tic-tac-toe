@@ -1,6 +1,5 @@
 class Board
   attr_reader :all_spaces
-  attr_reader :rows
   
   def initialize(dimension = 3) 
     @dimension = dimension
