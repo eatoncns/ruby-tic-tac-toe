@@ -6,8 +6,7 @@ class Human
 
   def choose_space(board)
     display_board(board)
-    prompt_for_space(board.size)
-    get_chosen_space
+    get_chosen_space(board.size)
   end
 
   private
@@ -42,7 +41,13 @@ class Human
       @output.print "Choose space (1-#{max_space}): "
     end
 
-    def get_chosen_space
-      @input.gets.chomp.to_i
+    def get_chosen_space(max_space)
+      prompt_for_space(max_space)
+      input_string = @input.gets.chomp
+      begin
+        Integer(input_string)
+      rescue ArgumentError, TypeError
+        get_chosen_space(max_space)
+      end
     end
 end

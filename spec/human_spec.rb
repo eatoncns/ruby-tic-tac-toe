@@ -26,8 +26,27 @@ describe Human do
       expect(output.string).to include "Choose space (1-9): "
     end
 
-    it "should return input space" do
-      expect(player.choose_space(board)).to eq 5
+    context "when input space is valid" do
+      it "should return input space" do
+        expect(player.choose_space(board)).to eq 5
+      end
+    end
+
+    ["aofb\n5\n", "\n5\n", "3.5\n5\n", "7haf\n5\n"].each do |invalid_input|
+      context "when input space is not valid (#{invalid_input})" do
+        it "should prompt again" do
+          input = StringIO.new(invalid_input)
+          player = Human.new(input, output)
+          player.choose_space(board)
+          expect(output.string.scan("Choose space").size).to eq 2
+        end
+
+        it "should return valid value" do
+          input = StringIO.new(invalid_input)
+          player = Human.new(input, output)
+          expect(player.choose_space(board)).to eq 5
+        end
+      end
     end
   end
 end
