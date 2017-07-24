@@ -22,7 +22,7 @@ class Board
   end
 
   def game_over?
-    winning_row? || all_spaces_taken?
+    winning_line? || all_spaces_taken?
   end
   
   def self.from_a(marks)
@@ -36,13 +36,28 @@ class Board
 
   private
     def rows
-      @board.each_slice(@dimension)
+      @board.each_slice(@dimension).to_a
     end
 
-    def winning_row?
-      rows.any? do |row|
-        first_mark = row[0]
-        first_mark != :empty && row.all? { |mark| mark == first_mark }
+    def columns
+      rows.transpose
+    end
+
+    def column_from_rows(&col_offset)
+      (0..@dimension-1).collect { |row| @board[row*@dimension + col_offset.call(row)] }
+    end
+
+    def diagonals
+      [] << column_from_rows { |row| row } << column_from_rows { |row| @dimension-1-row }
+    end
+
+    def lines
+      rows + columns + diagonals
+    end
+
+    def winning_line?
+      lines.any? do |line|
+        line.first != :empty && line.all? { |mark| mark == line.first }
       end
     end
 
