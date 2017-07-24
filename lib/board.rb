@@ -1,14 +1,11 @@
 class Board
   attr_reader :size
+  attr_reader :dimension
   
   def initialize(dimension = 3) 
     @dimension = dimension
     @size = dimension*dimension
     @board = Array.new(@size, "")
-  end
-
-  def random_space
-    (1..@size).to_a.sample
   end
 
   def set_mark(space, mark)
@@ -25,6 +22,15 @@ class Board
     winning_line? || all_spaces_taken?
   end
   
+  def random_space
+    (1..@size).to_a.sample
+  end
+
+  def space_rows
+    (1..@size).each_slice(@dimension)
+  end
+
+  
   def self.from_a(marks)
     board = Board.new
     marks.each_with_index do |mark, index|
@@ -34,10 +40,6 @@ class Board
     board
   end
   
-  def rows
-    @board.each_slice(@dimension).to_a
-  end
-
   private
     def valid_space(space)
       space >= 1 && space <= @size
@@ -47,6 +49,10 @@ class Board
       if !valid_space(space)
         raise(IndexError, "space #{space} out of board bounds: (1..#{@size})")
       end
+    end
+    
+    def rows
+      @board.each_slice(@dimension).to_a
     end
 
     def columns
