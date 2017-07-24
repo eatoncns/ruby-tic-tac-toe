@@ -10,6 +10,14 @@ describe Board do
                                           "Y", "", "",
                                           "X", "", ""] }
 
+  describe "#size" do
+    context "with default board" do
+      it "should be 9" do
+        expect(board.size).to eq 9
+      end
+    end
+  end
+  
   describe "#get_mark" do
     context "with a new board" do
       it "should return empty for all spaces" do
