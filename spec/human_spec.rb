@@ -2,7 +2,8 @@ require 'human'
 require 'board'
 
 describe Human do
-  let(:input) { StringIO.new("5\n") }
+  let(:valid_input) { "5\n" }
+  let(:input) { StringIO.new(valid_input) }
   let(:output) { StringIO.new }
   let(:player) { Human.new(input, output) }
   let(:board) { Board.new }
@@ -32,17 +33,17 @@ describe Human do
       end
     end
 
-    ["aofb\n5\n", "\n5\n", "3.5\n5\n", "7haf\n5\n"].each do |invalid_input|
+    ["aofb\n", "\n", "3.5\n", "7haf\n"].each do |invalid_input|
       context "when input space is not valid (#{invalid_input})" do
         it "should prompt again" do
-          input = StringIO.new(invalid_input)
+          input = StringIO.new(invalid_input + valid_input)
           player = Human.new(input, output)
           player.choose_space(board)
           expect(output.string.scan("Choose space").size).to eq 2
         end
 
         it "should return valid value" do
-          input = StringIO.new(invalid_input)
+          input = StringIO.new(invalid_input + valid_input)
           player = Human.new(input, output)
           expect(player.choose_space(board)).to eq 5
         end
