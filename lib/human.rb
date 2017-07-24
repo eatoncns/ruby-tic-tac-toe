@@ -6,8 +6,9 @@ class Human
 
   def choose_space(board)
     display_board(board)
-    get_chosen_space(board.size)
+    get_empty_space(board)
   end
+
 
   private
     def display_board(board)
@@ -36,12 +37,17 @@ class Human
       end
       row_output << "|\n"
     end
-
-    def prompt_for_space(max_space)
-      @output.print "Choose space (1-#{max_space}): "
+    
+    def get_empty_space(board)
+      space = get_space_choice(board.size)
+      if board.get_mark(space).empty?
+        space
+      else
+        get_space_choice(board.size)
+      end
     end
 
-    def get_chosen_space(max_space)
+    def get_space_choice(max_space)
       prompt_for_space(max_space)
       input_string = @input.gets.chomp
       begin
@@ -51,6 +57,10 @@ class Human
         end
       rescue ArgumentError, TypeError
       end
-      get_chosen_space(max_space)
+      get_space_choice(max_space)
+    end
+    
+    def prompt_for_space(max_space)
+      @output.print "Choose space (1-#{max_space}): "
     end
 end

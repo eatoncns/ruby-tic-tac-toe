@@ -49,5 +49,22 @@ describe Human do
         end
       end
     end
+
+    context "when input space is already taken" do
+      it "should prompt again" do
+        board.set_mark(1, "X")
+        input = StringIO.new("1\n5\n")
+        player = Human.new(input, output)
+        player.choose_space(board)
+        expect(output.string.scan("Choose space").size).to eq 2
+      end
+
+      it "should return valid value" do
+        board.set_mark(1, "X")
+        input = StringIO.new("1\n5\n")
+        player = Human.new(input, output)
+        expect(player.choose_space(board)).to eq 5
+      end
+    end
   end
 end
