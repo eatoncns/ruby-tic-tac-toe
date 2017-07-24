@@ -6,6 +6,9 @@ describe Board do
   let(:drawn_board) { Board.from_a [:X, :X, :Y,
                                     :X ,:Y, :X,
                                     :Y, :X, :Y] }
+  let(:in_progress_board) { Board.from_a [:X, :empty, :Y,
+                                          :Y, :empty, :empty,
+                                          :X, :empty, :empty] }
 
   describe "#get_mark" do
     context "with a new board" do
@@ -53,6 +56,12 @@ describe Board do
     context "when game is drawn" do
       it "will return true" do
         expect(drawn_board.game_over?).to be true
+      end
+    end
+
+    context "when game is still in progress" do
+      it "will return false" do
+        expect(in_progress_board.game_over?).to be false
       end
     end
 
