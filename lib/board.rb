@@ -34,6 +34,10 @@ class Board
     end
     board
   end
+  
+  def rows
+    @board.each_slice(@dimension).to_a
+  end
 
   private
     def valid_space(space)
@@ -44,10 +48,6 @@ class Board
       if !valid_space(space)
         raise(IndexError, "space #{space} out of board bounds: #{@all_spaces}")
       end
-    end
-
-    def rows
-      @board.each_slice(@dimension).to_a
     end
 
     def columns
