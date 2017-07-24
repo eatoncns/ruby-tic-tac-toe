@@ -3,18 +3,18 @@ require 'board'
 describe Board do
 
   let(:board) { Board.new }
-  let(:drawn_board) { Board.from_a [:X, :X, :Y,
-                                    :X ,:Y, :X,
-                                    :Y, :X, :Y] }
-  let(:in_progress_board) { Board.from_a [:X, :empty, :Y,
-                                          :Y, :empty, :empty,
-                                          :X, :empty, :empty] }
+  let(:drawn_board) { Board.from_a ["X", "X", "Y",
+                                    "X" ,"Y", "X",
+                                    "Y", "X", "Y"] }
+  let(:in_progress_board) { Board.from_a ["X", "", "Y",
+                                          "Y", "", "",
+                                          "X", "", ""] }
 
   describe "#get_mark" do
     context "with a new board" do
-      it "should return :empty for all spaces" do
+      it "should return empty for all spaces" do
         for space in board.all_spaces
-          expect(board.get_mark(space)).to eq :empty
+          expect(board.get_mark(space).empty?).to eq true
         end
       end
     end
@@ -22,8 +22,8 @@ describe Board do
     context "when #set_mark has been called for space" do
       it "should return the same mark" do
         space = board.random_space
-        board.set_mark(space, :X)
-        expect(board.get_mark(space)).to eq :X
+        board.set_mark(space, "X")
+        expect(board.get_mark(space)).to eq "X"
       end
     end
 
@@ -40,7 +40,7 @@ describe Board do
     [-3, 0, 10].each do |space|
       context "with invalid space #{space} input" do
         it "should raise an IndexError" do
-          expect{board.set_mark(space, :X)}.to raise_error(IndexError)
+          expect{board.set_mark(space, "X")}.to raise_error(IndexError)
         end
       end
     end 
@@ -70,7 +70,7 @@ describe Board do
      [1, 5, 9], [3, 5, 7]].each do |line|
       context "when player has taken all of line #{line}" do
         it "will return true" do
-          line.each { |space| board.set_mark(space, :X) }
+          line.each { |space| board.set_mark(space, "X") }
           expect(board.game_over?).to be true
         end
       end

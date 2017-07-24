@@ -5,7 +5,7 @@ class Board
     @dimension = dimension
     num_spaces = dimension*dimension
     @all_spaces = (1..num_spaces)
-    @board = Array.new(num_spaces, :empty)
+    @board = Array.new(num_spaces, "")
   end
 
   def random_space
@@ -68,11 +68,11 @@ class Board
 
     def winning_line?
       lines.any? do |line|
-        line.first != :empty && line.all? { |mark| mark == line.first }
+        !line.first.empty? && line.all? { |mark| mark == line.first }
       end
     end
 
     def all_spaces_taken?
-      @board.all? { |mark| mark != :empty }
+      @board.all? { |mark| !mark.empty? }
     end
 end
