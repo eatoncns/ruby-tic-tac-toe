@@ -4,8 +4,8 @@ RSpec.describe Board do
 
   let(:board) { Board.new }
   let(:drawn_board) { Board.from_a ["X", "X", "Y",
-                                    "X" ,"Y", "X",
-                                    "Y", "X", "Y"] }
+                                    "Y" ,"Y", "X",
+                                    "X", "X", "Y"] }
   let(:in_progress_board) { Board.from_a ["X", "", "Y",
                                           "Y", "", "",
                                           "X", "", ""] }
@@ -101,6 +101,18 @@ RSpec.describe Board do
                               "X", "Y", "",
                                "", "", "Y"])
         expect(board.winning_mark).to eq "Y"
+      end
+    end
+
+    context "when board is drawn" do
+      it "returns nil" do
+        expect(drawn_board.winning_mark).to be nil 
+      end
+    end
+
+    context "when board is in progress" do
+      it "returns nil" do
+        expect(in_progress_board.winning_mark).to be nil
       end
     end
   end

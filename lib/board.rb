@@ -24,6 +24,9 @@ class Board
 
   def winning_mark
     winning_line = lines.find { |line| winning_line?(line) }
+    if winning_line.nil?
+      return nil
+    end
     winning_line.first
   end
   
