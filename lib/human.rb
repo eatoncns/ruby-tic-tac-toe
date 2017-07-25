@@ -1,3 +1,5 @@
+require_relative 'board_display'
+
 class Human
   attr_reader :mark
 
@@ -15,32 +17,9 @@ class Human
 
   private
     def display_board(board)
-      divider = build_divider(board.dimension)
-      board.space_rows.each do |space_row|
-        @output.puts divider
-        @output.puts build_row_output(board, space_row)
-      end
-      @output.puts divider
+      @output.puts board_display(board)
     end
-
-    def build_divider(dimension)
-      divider = ""
-      dimension.times do
-        divider << "|---"
-      end
-      divider << "|\n"
-    end
-
-    def build_row_output(board, space_row)
-      row_output = ""
-      space_row.each do |space|
-        mark = board.get_mark(space)
-        mark = if mark.empty? then space.to_s else mark end
-        row_output << "| #{mark} "
-      end
-      row_output << "|\n"
-    end
-    
+ 
     def get_empty_space(board)
       space = get_space_choice(board.size)
       if board.get_mark(space).empty?
