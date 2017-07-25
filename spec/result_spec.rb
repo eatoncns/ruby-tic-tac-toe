@@ -23,4 +23,11 @@ describe "display_result" do
       expect(output.string).to include "It's a draw. Players are evenly matched\n"
     end
   end
+
+  context "when board is on progress" do
+    it "raises ArgumentError" do
+      board = Board.new
+      expect{display_result(board, output)}.to raise_error(ArgumentError)
+    end
+  end
 end
