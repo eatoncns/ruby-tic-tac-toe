@@ -1,7 +1,7 @@
 require 'result'
 require 'board'
 
-describe "display_result" do
+describe "Result.display" do
   let(:output) { StringIO.new }
 
   context "when a player has won game" do
@@ -9,7 +9,7 @@ describe "display_result" do
       board = Board.from_a(["X", "X", "X",
                             "Y", "Y", "",
                              "", "", ""])
-      display_result(board, output)
+      Result.display(board, output)
       expect(output.string).to include "X wins! Congrats X\n"
     end
   end
@@ -19,7 +19,7 @@ describe "display_result" do
       board = Board.from_a(["X", "X", "Y",
                             "Y" ,"Y", "X",
                             "X", "X", "Y"])
-      display_result(board, output)
+      Result.display(board, output)
       expect(output.string).to include "It's a draw. Players are evenly matched\n"
     end
   end
@@ -27,7 +27,7 @@ describe "display_result" do
   context "when board is on progress" do
     it "raises ArgumentError" do
       board = Board.new
-      expect{display_result(board, output)}.to raise_error(ArgumentError)
+      expect{Result.display(board, output)}.to raise_error(ArgumentError)
     end
   end
 end

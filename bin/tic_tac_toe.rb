@@ -12,4 +12,4 @@ game = Game.new(board, player_one, player_two)
 until game.game_over?
   game.take_turn
 end
-display_result(board)
+Result.display(board)
