@@ -19,7 +19,12 @@ class Board
   end
 
   def game_over?
-    winning_line? || all_spaces_taken?
+    winning_line_present? || all_spaces_taken?
+  end
+
+  def winning_mark
+    winning_line = lines.find { |line| winning_line?(line) }
+    winning_line.first
   end
   
   def random_space
@@ -71,10 +76,12 @@ class Board
       rows + columns + diagonals
     end
 
-    def winning_line?
-      lines.any? do |line|
-        !line.first.empty? && line.all? { |mark| mark == line.first }
-      end
+    def winning_line?(line)
+        !line.first.empty? && line.all? { |mark| mark == line.first } 
+    end
+
+    def winning_line_present?
+      lines.any? { |line| winning_line?(line) }
     end
 
     def all_spaces_taken?
