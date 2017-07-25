@@ -9,3 +9,8 @@ desc "Run the specs whenever a relevant file changes."
 task :watch do
   system "bundle exec guard"
 end
+
+desc "Run the game."
+task :run do
+  system "./bin/tic_tac_toe.rb"
+end
