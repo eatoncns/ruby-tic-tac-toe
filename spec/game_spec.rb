@@ -4,9 +4,9 @@ require 'human'
 
 RSpec.describe Game do
   before(:each) do
-    @board = instance_double("Board", :set_mark => nil)
-    @player_one = instance_double("Human", :mark => "X")
-    @player_two = double("Human", :mark => "Y")
+    @board = Board.new
+    @player_one = instance_double("Human", {:mark => "X", :choose_space => @board.random_space})
+    @player_two = instance_double("Human", {:mark => "Y", :choose_space => @board.random_space})
     @game = Game.new(@board, @player_one, @player_two)
   end
 
@@ -30,24 +30,26 @@ RSpec.describe Game do
     end
 
     it "sets mark in chosen space on board" do
-      space = Object.new
+      space = @board.random_space
       allow(@player_one).to receive(:choose_space).and_return(space)
-      expect(@board).to receive(:set_mark).with(space, @player_one.mark)
       @game.take_turn()
+      expect(@board.get_mark(space)).to eq @player_one.mark
     end
   end
 
   describe "#game_over?" do
     context "when board is not in game over state" do
       it "returns false" do
-        allow(@board).to receive(:game_over?).and_return(false)
         expect(@game.game_over?).to be false
       end
     end
 
     context "when board is in game over state" do
       it "returns true" do
-        allow(@board).to receive(:game_over?).and_return(true)
+        board = Board.from_a(["X", "X", "Y",
+                              "Y" ,"Y", "X",
+                              "X", "X", "Y"])
+        @game = Game.new(board, @player_one, @player_two)
         expect(@game.game_over?).to be true
       end
     end
