@@ -13,4 +13,14 @@ describe "display_result" do
       expect(output.string).to include "X wins! Congrats X\n"
     end
   end
+
+  context "when board is drawn" do
+    it "outputs draw message" do
+      board = Board.from_a(["X", "X", "Y",
+                            "Y" ,"Y", "X",
+                            "X", "X", "Y"])
+      display_result(board, output)
+      expect(output.string).to include "It's a draw. Players are evenly matched\n"
+    end
+  end
 end

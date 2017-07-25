@@ -116,4 +116,27 @@ RSpec.describe Board do
       end
     end
   end
+
+  describe "#drawn?" do
+    context "when board is in progress" do
+      it "returns false" do
+        expect(in_progress_board.drawn?).to be false
+      end
+    end
+    
+    context "when board is drawn" do
+      it "returns true" do
+        expect(drawn_board.drawn?).to be true 
+      end
+    end
+    
+    context "when full board has been won" do
+      it "returns false" do
+        board = Board.from_a(["X", "X", "X",
+                              "X", "Y", "Y",
+                              "Y", "Y", "X"])
+        expect(board.drawn?).to eq false
+      end
+    end
+  end
 end

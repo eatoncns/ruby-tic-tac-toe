@@ -22,6 +22,10 @@ class Board
     winning_line_present? || all_spaces_taken?
   end
 
+  def drawn?
+    all_spaces_taken? && !winning_line_present?
+  end
+
   def winning_mark
     winning_line = lines.find { |line| winning_line?(line) }
     if winning_line.nil?
