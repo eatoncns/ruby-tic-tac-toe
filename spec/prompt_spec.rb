@@ -1,6 +1,6 @@
 require 'prompt'
 
-describe Prompt do
+RSpec.describe Prompt do
   describe ".play_again?" do
     let(:yes_answer) { "y\n" }
     let(:input) { StringIO.new(yes_answer) }
