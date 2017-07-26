@@ -10,7 +10,7 @@ RSpec.describe "BoardDisplay" do
                    "| 4 | 5 | 6 |\n" +
                    "|---|---|---|\n" +
                    "| 7 | 8 | 9 |\n" +
-                   "|---|---|---|"
+                   "|---|---|---|\n"
     expect(BoardDisplay.as_string(board)).to eq board_output
   end
 
@@ -24,7 +24,7 @@ RSpec.describe "BoardDisplay" do
                    "| Y | 5 | 6 |\n" +
                    "|---|---|---|\n" +
                    "| 7 | Y | 9 |\n" +
-                   "|---|---|---|"
+                   "|---|---|---|\n"
     expect(BoardDisplay.as_string(board)).to eq board_output
   end
 end

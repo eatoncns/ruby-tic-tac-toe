@@ -6,7 +6,7 @@ class BoardDisplay
       display << divider
       display << build_row_output(board, space_row)
     end
-    display << divider.chomp
+    display << divider
   end
 
   private
