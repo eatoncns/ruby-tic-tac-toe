@@ -2,35 +2,28 @@ require 'human'
 require 'board'
 
 RSpec.describe Human do
-  let(:valid_input) { "5\n" }
-  let(:input) { StringIO.new(valid_input) }
-  let(:output) { StringIO.new }
-  let(:player) { Human.new("X", input, output) }
+  let(:console) { instance_double("Console", { :get_int => 5, :output => nil}) }
+  let(:player) { Human.new("X", console) }
   let(:board) { Board.new }
+  let(:expected_prompt) { "Choose space (1-9): " }
 
-  def run_for_input(input)
-    input = StringIO.new(input)
-    player = Human.new("X", input, output)
-    player.choose_space(board)
-  end
-  
   describe "#choose_space" do
     it "displays current board state" do
       board.set_mark(1, "X")
-      player.choose_space(board)
       board_output = "|---|---|---|\n" +
                      "| X | 2 | 3 |\n" +
                      "|---|---|---|\n" +
                      "| 4 | 5 | 6 |\n" +
                      "|---|---|---|\n" +
                      "| 7 | 8 | 9 |\n" +
-                     "|---|---|---|"
-      expect(output.string).to include board_output
+                     "|---|---|---|\n"
+      expect(console).to receive(:output).with(board_output)
+      player.choose_space(board)
     end
 
     it "prompts for space" do
+      expect(console).to receive(:output).with(expected_prompt)
       player.choose_space(board)
-      expect(output.string).to include "Choose space (1-9): "
     end
 
     context "when input space is valid" do
@@ -39,29 +32,31 @@ RSpec.describe Human do
       end
     end
 
-    ["aofb\n", "\n", "3.5\n", "7haf\n", "-1\n", "0\n", "10\n"].each do |invalid_input|
-      context "when input space is not valid (#{invalid_input})" do
-        it "prompts again" do
-          run_for_input(invalid_input + valid_input)
-          expect(output.string.scan("Choose space").size).to eq 2
-        end
+    context "when input space is not in range" do
+      it "prompts again" do
+        allow(console).to receive(:get_int).and_return(-1, 0, 10, 5)
+        expect(console).to receive(:output).with(expected_prompt).exactly(4).times
+        player.choose_space(board)
+      end
 
-        it "returns eventually input valid value" do
-          expect(run_for_input(invalid_input + valid_input)).to eq 5
-        end
+      it "returns eventually input valid value" do
+        allow(console).to receive(:get_int).and_return(-1, 0, 10, 5)
+        expect(player.choose_space(board)).to eq 5
       end
     end
 
     context "when input space is already taken" do
       it "prompts again" do
         board.set_mark(1, "X")
-        run_for_input("1\n5\n")
-        expect(output.string.scan("Choose space").size).to eq 2
+        allow(console).to receive(:get_int).and_return(1, 5)
+        expect(console).to receive(:output).with(expected_prompt).exactly(2).times
+        player.choose_space(board)
       end
 
       it "returns eventually input valid value" do
         board.set_mark(1, "X")
-        expect(run_for_input("1\n5\n")).to eq 5
+        allow(console).to receive(:get_int).and_return(1, 5)
+        expect(player.choose_space(board)).to eq 5
       end
     end
   end
