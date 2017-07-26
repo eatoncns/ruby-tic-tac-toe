@@ -31,6 +31,6 @@ class Human
     end
 
     def get_space_choice(max_space)
-      Prompt.for_int_in_range(@console, "Choose space", (1..max_space))
+      Prompt.for_int_in_range(@console, "[#{@name}] Choose space", (1..max_space))
     end    
 end
