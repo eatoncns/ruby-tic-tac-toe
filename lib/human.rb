@@ -1,12 +1,12 @@
 require_relative 'board_display'
+require_relative 'prompt'
 
 class Human
   attr_reader :mark
 
-  def initialize(mark, input = $stdin, output = $stdout)
+  def initialize(mark, console)
     @mark = mark
-    @input = input
-    @output = output
+    @console = console
   end 
 
   def choose_space(board)
@@ -17,7 +17,7 @@ class Human
 
   private
     def display_board(board)
-      @output.puts BoardDisplay.as_string(board)
+      @console.output BoardDisplay.as_string(board) + "\n"
     end
  
     def get_empty_space(board)
@@ -30,19 +30,6 @@ class Human
     end
 
     def get_space_choice(max_space)
-      prompt_for_space(max_space)
-      input_string = @input.gets.chomp
-      begin
-        space = Integer(input_string)
-        if space >= 1 && space <= max_space
-          return space
-        end
-      rescue ArgumentError, TypeError
-      end
-      get_space_choice(max_space)
-    end
-    
-    def prompt_for_space(max_space)
-      @output.print "Choose space (1-#{max_space}): "
-    end
+      Prompt.for_int_in_range(@console, "Choose space", (1..max_space))
+    end    
 end

@@ -1,8 +1,9 @@
 require 'result'
 require 'board'
+require 'console'
 
 describe "Result.display" do
-  let(:output) { StringIO.new }
+  let(:console) { instance_double("Console", :output => nil) }
   let(:drawn_board) { board = Board.from_a(["X", "X", "Y",
                                             "Y" ,"Y", "X",
                                             "X", "X", "Y"]) }
@@ -12,22 +13,22 @@ describe "Result.display" do
       board = Board.from_a(["X", "X", "X",
                             "Y", "Y", "",
                              "", "", ""])
-      Result.display(board, output)
-      expect(output.string).to include "X wins! Congrats X\n"
+      expect(console).to receive(:output).with("X wins! Congrats X\n")
+      Result.display(board, console)
     end
   end
 
   context "when board is drawn" do
     it "outputs draw message" do
-      Result.display(drawn_board, output)
-      expect(output.string).to include "It's a draw. Players are evenly matched\n"
+      expect(console).to receive(:output).with("It's a draw. Players are evenly matched\n")
+      Result.display(drawn_board, console)
     end
   end
 
   context "when board is on progress" do
     it "raises ArgumentError" do
       board = Board.new
-      expect{Result.display(board, output)}.to raise_error(ArgumentError)
+      expect{Result.display(board, console)}.to raise_error(ArgumentError)
     end
   end
 
@@ -38,8 +39,8 @@ describe "Result.display" do
                    "| Y | Y | X |\n" +
                    "|---|---|---|\n" +
                    "| X | X | Y |\n" +
-                   "|---|---|---|"
-    Result.display(drawn_board, output)
-    expect(output.string).to include board_output
+                   "|---|---|---|\n"
+    expect(console).to receive(:output).with(board_output)
+    Result.display(drawn_board, console)
   end
 end
