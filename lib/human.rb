@@ -14,7 +14,6 @@ class Human
     get_empty_space(board)
   end
 
-
   private
     def display_board(board)
       @console.output BoardDisplay.as_string(board)
