@@ -17,6 +17,6 @@ loop do
   until game.game_over?
     game.take_turn
   end
-  Result.display(board)
+  Result.display(board, console)
   break if !prompt.play_again?
 end
