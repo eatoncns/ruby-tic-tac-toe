@@ -10,7 +10,6 @@ require_relative '../lib/prompt'
 loop do
   board = Board.new
   console = Console.new
-  prompt = Prompt.new(console)
   player_one = Human.new "X"
   player_two = Human.new "Y"
   game = Game.new(board, player_one, player_two)
@@ -18,5 +17,5 @@ loop do
     game.take_turn
   end
   Result.display(board, console)
-  break if !prompt.play_again?
+  break if !Prompt.play_again?(console)
 end
