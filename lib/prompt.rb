@@ -1,9 +1,13 @@
 class Prompt
-  def self.play_again?(input = $stdin, output = $stdout)
+  def initialize(console)
+    @console = console
+  end
+
+  def play_again?
     answer = nil
     until answer == "y" || answer == "n" do
-      output.print("Do you want to play another game? (y/n): ")
-      answer = input.gets.chomp
+      @console.output("Do you want to play another game? (y/n): ")
+      answer = @console.get_string
     end
     answer == "y"
   end
