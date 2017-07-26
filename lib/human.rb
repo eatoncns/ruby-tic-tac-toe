@@ -3,9 +3,11 @@ require_relative 'prompt'
 
 class Human
   attr_reader :mark
+  attr_reader :name
 
-  def initialize(mark, console)
+  def initialize(mark, name, console)
     @mark = mark
+    @name = name
     @console = console
   end 
 

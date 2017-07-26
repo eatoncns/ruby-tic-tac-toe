@@ -3,7 +3,7 @@ require 'board'
 
 RSpec.describe Human do
   let(:console) { instance_double("Console", { :get_int => 5, :output => nil}) }
-  let(:player) { Human.new("X", console) }
+  let(:player) { Human.new("X", "Tyrion", console) }
   let(:board) { Board.new }
   let(:expected_prompt) { "Choose space (1-9): " }
 
