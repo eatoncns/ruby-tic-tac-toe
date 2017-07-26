@@ -2,6 +2,33 @@ require 'prompt'
 require 'console'
 
 RSpec.describe Prompt do
+
+  describe ".for_int_in_range" do
+    let(:console) { instance_double("Console", { :get_int => 3, :output => nil}) }
+    let(:message) { "Choose space" }
+    let(:range) { (1..9) }
+    let(:expected_message) { "Choose space (1-9): " }
+
+    it "outputs message" do
+      expect(console).to receive(:output).with(expected_message)
+      Prompt.for_int_in_range(console, message, range)
+    end
+
+    context "when player enters integer in range" do
+      it "returns input integer" do
+        expect(Prompt.for_int_in_range(console, message, range)).to eq 3
+      end
+    end
+
+    context "when player enters integer outside range" do
+      it "outputs message again" do
+        allow(console).to receive(:get_int).and_return(10, 5)
+        expect(console).to receive(:output).with(expected_message).twice
+        Prompt.for_int_in_range(console, message, range)
+      end
+    end
+  end
+
   describe ".play_again?" do
     let(:yes_answer) { "y" }
     let(:console) { instance_double("Console", { :get_string => yes_answer, :output => nil }) }
