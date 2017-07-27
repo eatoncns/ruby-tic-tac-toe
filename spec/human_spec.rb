@@ -46,6 +46,13 @@ RSpec.describe Human do
     end
 
     context "when input space is already taken" do
+      it "outputs error" do
+        board.set_mark(1, "X")
+        allow(console).to receive(:get_int).and_return(1, 5)
+        expect(console).to receive(:puts).with("Space 1 is already taken")
+        player.choose_space(board)
+      end
+      
       it "prompts again until valid" do
         board.set_mark(1, "X")
         allow(console).to receive(:get_int).and_return(1, 1, 5)

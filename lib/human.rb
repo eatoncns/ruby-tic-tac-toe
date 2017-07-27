@@ -24,8 +24,10 @@ class Human
     def get_empty_space(board)
       space = get_space_choice(board.size)
       if board.get_mark(space).empty?
+        @console.line_break
         space
       else
+        @console.puts("Space #{space} is already taken")
         get_empty_space(board)
       end
     end

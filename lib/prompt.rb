@@ -7,7 +7,6 @@ class Prompt
       console.puts("Enter number in range #{range_string}")
       int = self.for_int(console, prompt)
     end
-    console.line_break
     int
   end
 
