@@ -1,7 +1,7 @@
 require 'player_selection'
 require 'console'
 
-describe Players do
+RSpec.describe Players do
   describe ".select" do
     before(:each) do
       @console = instance_double("Console", :print => nil, :puts => nil, :line_break => nil)
