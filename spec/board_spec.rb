@@ -139,4 +139,21 @@ RSpec.describe Board do
       end
     end
   end
+
+  describe "#empty_spaces" do
+    context "with full board" do
+      it "returns empty array" do
+        expect(drawn_board.empty_spaces).to eq []
+      end
+    end
+
+    context "with in partially filled board" do
+      it "returns empty spaces" do
+        board = Board.from_a(["X", "", "Y",
+                               "", "X", "",
+                              "Y", "X", ""])
+        expect(board.empty_spaces).to eq [2, 4, 6, 9]
+      end
+    end
+  end
 end
