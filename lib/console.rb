@@ -4,16 +4,16 @@ class Console
     @output = output
   end
 
-  def output(string)
-    @output.print(string)
-  end
-
   def print(string)
     @output.print(string)
   end
 
   def puts(string)
-    @output.puts(string)
+    @output.print(string + "\n")
+  end
+
+  def line_break
+    @output.puts
   end
 
   def get_string

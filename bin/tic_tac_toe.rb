@@ -8,9 +8,9 @@ require_relative '../lib/console'
 require_relative '../lib/prompt'
 require_relative '../lib/player_selection'
 
+console = Console.new
 loop do
   board = Board.new
-  console = Console.new
   player_one, player_two = Players.select(console)
   game = Game.new(board, player_one, player_two)
   until game.game_over?
