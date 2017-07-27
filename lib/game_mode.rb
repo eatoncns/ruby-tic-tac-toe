@@ -11,9 +11,9 @@ class GameMode
                  "  2. Human vs Human\n")
     mode = Prompt.for_int_in_range(console, "Select game mode", (1..2))
     if mode == HUMAN_VS_COMPUTER
-      HumanVsComputer.new
+      HumanVsComputer.new(console)
     else
-      HumanVsHuman.new
+      HumanVsHuman.new(console)
     end
   end
 end

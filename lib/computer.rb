@@ -1,4 +1,6 @@
 class Computer
+  attr_reader :mark
+  
   def initialize(mark, name, console, random = Random.new)
     @mark = mark
     @name = name
