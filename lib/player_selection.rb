@@ -3,7 +3,7 @@ require_relative 'human'
 class Players
   def self.select(console)
     name_one, name_two = get_names(console)
-    [Human.new("X", name_one, console), Human.new("Y", name_two, console)]
+    [Human.new("X", name_one, console), Human.new("O", name_two, console)]
   end
 
   private

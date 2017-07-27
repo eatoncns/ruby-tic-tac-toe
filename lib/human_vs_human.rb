@@ -5,7 +5,7 @@ class HumanVsHuman
 
   def configure
     name_one, name_two = get_names
-    [Human.new("X", name_one, @console), Human.new("Y", name_two, @console)]
+    [Human.new("X", name_one, @console), Human.new("O", name_two, @console)]
   end
   
   private
