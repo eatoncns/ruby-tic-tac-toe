@@ -6,12 +6,13 @@ require_relative '../lib/human'
 require_relative '../lib/result'
 require_relative '../lib/console'
 require_relative '../lib/prompt'
-require_relative '../lib/player_selection'
+require_relative '../lib/game_mode'
 
 console = Console.new
 loop do
   board = Board.new
-  player_one, player_two = Players.select(console)
+  players = GameMode.select(console)
+  player_one, player_two = players.configure 
   game = Game.new(board, player_one, player_two)
   until game.game_over?
     game.take_turn

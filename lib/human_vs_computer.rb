@@ -1,4 +1,6 @@
 require_relative 'prompt'
+require_relative 'human'
+require_relative 'computer'
 
 class HumanVsComputer
   def initialize(console)

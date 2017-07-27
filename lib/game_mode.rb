@@ -1,5 +1,6 @@
 require_relative 'prompt'
 require_relative 'human_vs_computer'
+require_relative 'human_vs_human'
 
 class GameMode
   HUMAN_VS_COMPUTER = 1
