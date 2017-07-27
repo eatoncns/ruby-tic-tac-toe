@@ -6,11 +6,32 @@ RSpec.describe Console do
   let(:output) { StringIO.new }
   let(:console) { Console.new(input, output) }
 
-  describe "#output" do
+  describe "#print" do
     it "writes input string to output" do
       test_string = "Parzival!"
-      console.output(test_string)
+      console.print(test_string)
       expect(output.string).to eq test_string
+    end
+  end
+
+  describe "#puts" do
+    it "writes input string to output adding newline" do
+      test_string = "Parzival!"
+      console.puts(test_string)
+      expect(output.string).to eq test_string + "\n"
+    end
+
+    it "adds newline even if one already present" do
+      test_string = "Parzival!\n"
+      console.puts(test_string)
+      expect(output.string).to eq test_string + "\n"
+    end
+  end
+
+  describe "#line_break" do
+    it "outputs newline" do
+      console.line_break
+      expect(output.string).to eq "\n"
     end
   end
   

@@ -3,7 +3,7 @@ require 'board'
 require 'console'
 
 describe "Result.display" do
-  let(:console) { instance_double("Console", :output => nil) }
+  let(:console) { instance_double("Console", :puts => nil, :line_break => nil) }
   let(:drawn_board) { board = Board.from_a(["X", "X", "Y",
                                             "Y" ,"Y", "X",
                                             "X", "X", "Y"]) }
@@ -13,14 +13,14 @@ describe "Result.display" do
       board = Board.from_a(["X", "X", "X",
                             "Y", "Y", "",
                              "", "", ""])
-      expect(console).to receive(:output).with("X wins! Congrats X\n")
+      expect(console).to receive(:puts).with("X wins! Congrats X")
       Result.display(board, console)
     end
   end
 
   context "when board is drawn" do
     it "outputs draw message" do
-      expect(console).to receive(:output).with("It's a draw. Players are evenly matched\n")
+      expect(console).to receive(:puts).with("It's a draw. Players are evenly matched")
       Result.display(drawn_board, console)
     end
   end
@@ -40,7 +40,7 @@ describe "Result.display" do
                    "|---|---|---|\n" +
                    "| X | X | Y |\n" +
                    "|---|---|---|\n"
-    expect(console).to receive(:output).with(board_output)
+    expect(console).to receive(:puts).with(board_output)
     Result.display(drawn_board, console)
   end
 end

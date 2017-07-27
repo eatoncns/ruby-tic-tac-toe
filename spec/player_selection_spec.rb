@@ -4,7 +4,7 @@ require 'console'
 describe Players do
   describe ".select" do
     before(:each) do
-      @console = instance_double("Console", :output => nil)
+      @console = instance_double("Console", :print => nil, :puts => nil, :line_break => nil)
       allow(@console).to receive(:get_string).and_return("Tyrion", "Cersei")
     end
 
@@ -30,7 +30,7 @@ describe Players do
     it "prompts players for names" do
       ["one", "two"].each do |num|
         prompt = "Enter player #{num} name: "
-        expect(@console).to receive(:output).with(prompt).ordered
+        expect(@console).to receive(:print).with(prompt).ordered
         expect(@console).to receive(:get_string).ordered
       end
       Players.select(@console)
@@ -47,9 +47,15 @@ describe Players do
     end
 
     context "when player two inputs same name as player one" do
+      it "outputs error" do
+        allow(@console).to receive(:get_string).and_return("Tyrion", "Tyrion", "Cersei")
+        expect(@console).to receive(:puts).with("Players cannot have the same name")
+        Players.select(@console)
+      end
+
       it "prompts for name again" do
         allow(@console).to receive(:get_string).and_return("Tyrion", "Tyrion", "Cersei")
-        expect(@console).to receive(:output).with(/Enter player two/).exactly(2).times
+        expect(@console).to receive(:print).with(/Enter player two/).exactly(2).times
         expect(@console).to receive(:get_string).exactly(3).times
         Players.select(@console)
       end

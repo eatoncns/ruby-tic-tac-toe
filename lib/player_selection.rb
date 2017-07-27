@@ -11,14 +11,15 @@ class Players
       name_one = get_name("one", console)
       name_two = get_name("two", console)
       until name_one != name_two do
-        console.output("Players cannot have the same name\n")
+        console.puts("Players cannot have the same name")
         name_two = get_name("two", console)
       end
+      console.line_break
       [name_one, name_two]
     end
 
     def self.get_name(player_num, console)
-      console.output("Enter player #{player_num} name: ")
+      console.print("Enter player #{player_num} name: ")
       console.get_string
     end
 end

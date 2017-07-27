@@ -2,7 +2,7 @@ require 'human'
 require 'board'
 
 RSpec.describe Human do
-  let(:console) { instance_double("Console", { :get_int => 5, :output => nil}) }
+  let(:console) { instance_double("Console", { :get_int => 5, :puts => nil, :print => nil, :line_break => nil}) }
   let(:player) { Human.new("X", "Tyrion", console) }
   let(:board) { Board.new }
   let(:expected_prompt) { "[Tyrion] Choose space (1-9): " }
@@ -17,12 +17,12 @@ RSpec.describe Human do
                      "|---|---|---|\n" +
                      "| 7 | 8 | 9 |\n" +
                      "|---|---|---|\n"
-      expect(console).to receive(:output).with(board_output)
+      expect(console).to receive(:puts).with(board_output)
       player.choose_space(board)
     end
 
     it "prompts for space" do
-      expect(console).to receive(:output).with(expected_prompt)
+      expect(console).to receive(:print).with(expected_prompt)
       player.choose_space(board)
     end
 
@@ -35,7 +35,7 @@ RSpec.describe Human do
     context "when input space is not in range" do
       it "prompts again" do
         allow(console).to receive(:get_int).and_return(-1, 0, 10, 5)
-        expect(console).to receive(:output).with(expected_prompt).exactly(4).times
+        expect(console).to receive(:print).with(expected_prompt).exactly(4).times
         player.choose_space(board)
       end
 
@@ -49,7 +49,7 @@ RSpec.describe Human do
       it "prompts again" do
         board.set_mark(1, "X")
         allow(console).to receive(:get_int).and_return(1, 5)
-        expect(console).to receive(:output).with(expected_prompt).exactly(2).times
+        expect(console).to receive(:print).with(expected_prompt).exactly(2).times
         player.choose_space(board)
       end
 
