@@ -27,12 +27,8 @@ class Prompt
   end
   
   def self.play_again?(console)
-    answer = nil
-    until answer == "y" || answer == "n" do
-      console.print("Do you want to play another game? (y/n): ")
-      answer = console.get_string
-    end
+    answer = self.for_yes_no(console, "Do you want to play another game?")
     console.line_break
-    answer == "y"
+    answer
   end
 end
