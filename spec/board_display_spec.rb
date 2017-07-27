@@ -16,14 +16,14 @@ RSpec.describe "BoardDisplay" do
 
   it "returns string representation of populated board" do
     board = Board.from_a(["X", "", "X",
-                          "Y", "", "",
-                          "", "Y", ""])
+                          "O", "", "",
+                          "", "O", ""])
     board_output = "|---|---|---|\n" +
                    "| X | 2 | X |\n" +
                    "|---|---|---|\n" +
-                   "| Y | 5 | 6 |\n" +
+                   "| O | 5 | 6 |\n" +
                    "|---|---|---|\n" +
-                   "| 7 | Y | 9 |\n" +
+                   "| 7 | O | 9 |\n" +
                    "|---|---|---|\n"
     expect(BoardDisplay.as_string(board)).to eq board_output
   end

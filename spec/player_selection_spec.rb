@@ -22,9 +22,9 @@ RSpec.describe Players do
       expect(player_one.mark).to eq "X"
     end
 
-    it "returns second player with mark Y" do
+    it "returns second player with mark O" do
       player_one, player_two = Players.select(@console)
-      expect(player_two.mark).to eq "Y"
+      expect(player_two.mark).to eq "O"
     end
 
     it "prompts players for names" do

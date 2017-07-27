@@ -6,8 +6,8 @@ RSpec.describe Computer do
   let(:console) { instance_double("Console", :puts => nil, :line_break => nil) }
   let(:random) { instance_double("Random", :rand => 1) }
   let(:computer) { Computer.new("X", "Bran", console, random) }
-  let(:board) { Board.from_a(["X", "", "Y",
-                              "", "X", "Y",
+  let(:board) { Board.from_a(["X", "", "O",
+                              "", "X", "O",
                               "X", "", ""]) }
 
   describe "#choose_space" do

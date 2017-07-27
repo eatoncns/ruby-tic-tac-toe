@@ -6,7 +6,7 @@ RSpec.describe Game do
   before(:each) do
     @board = Board.new
     @player_one = instance_double("Human", {:mark => "X", :choose_space => @board.random_space})
-    @player_two = instance_double("Human", {:mark => "Y", :choose_space => @board.random_space})
+    @player_two = instance_double("Human", {:mark => "O", :choose_space => @board.random_space})
     @game = Game.new(@board, @player_one, @player_two)
   end
 
@@ -46,9 +46,9 @@ RSpec.describe Game do
 
     context "when board is in game over state" do
       it "returns true" do
-        board = Board.from_a(["X", "X", "Y",
-                              "Y" ,"Y", "X",
-                              "X", "X", "Y"])
+        board = Board.from_a(["X", "X", "O",
+                              "O" ,"O", "X",
+                              "X", "X", "O"])
         @game = Game.new(board, @player_one, @player_two)
         expect(@game.game_over?).to be true
       end
