@@ -1,8 +1,12 @@
 class Prompt
   def self.for_int_in_range(console, message, range)
-    int = nil
+    range_string = "#{range.first}-#{range.last}"
+    prompt = "#{message} (#{range_string}): "
+    console.print(prompt)
+    int = console.get_int
     until range.include?(int)
-      console.print("#{message} (#{range.first}-#{range.last}): ")
+      console.puts("Enter number in range #{range_string}")
+      console.print(prompt)
       int = console.get_int
     end
     console.line_break

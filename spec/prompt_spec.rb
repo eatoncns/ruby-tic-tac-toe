@@ -21,6 +21,12 @@ RSpec.describe Prompt do
     end
 
     context "when player enters integer outside range" do
+      it "outputs error" do
+        allow(console).to receive(:get_int).and_return(10, 5)
+        expect(console).to receive(:puts).with("Enter number in range 1-9")
+        Prompt.for_int_in_range(console, message, range) 
+      end
+
       it "outputs message again" do
         allow(console).to receive(:get_int).and_return(10, 5)
         expect(console).to receive(:print).with(expected_message).twice
