@@ -22,14 +22,14 @@ RSpec.describe GameMode do
 
   context "when player selects Human vs Computer" do
     it "returns appropriate configuration class" do
-      allow(console).to receive(:get_int).and_return 1
+      allow(console).to receive(:get_int).and_return GameMode::HUMAN_VS_COMPUTER
       expect(GameMode.select(console)).to be_a HumanVsComputer
     end
   end
 
   context "when player selects Human vs Human" do
     it "returns appropriate configuration class" do
-      allow(console).to receive(:get_int).and_return 2
+      allow(console).to receive(:get_int).and_return GameMode::HUMAN_VS_HUMAN
       expect(GameMode.select(console)).to be_a HumanVsHuman
     end
   end
