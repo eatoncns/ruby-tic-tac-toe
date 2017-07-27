@@ -8,6 +8,23 @@ class Prompt
     console.line_break
     int
   end
+
+  def self.for_string(console, message)
+    console.print(message + ": ")
+    console.get_string
+  end
+
+  def self.for_yes_no(console, question)
+    prompt = question + " (y/n): "
+    console.print(prompt)
+    answer = console.get_string
+    until answer == "y" || answer == "n" do
+      console.puts("Answer must be y or n")
+      console.print(prompt)
+      answer = console.get_string
+    end
+    answer == "y"
+  end
   
   def self.play_again?(console)
     answer = nil
