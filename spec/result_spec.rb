@@ -2,7 +2,7 @@ require 'result'
 require 'board'
 require 'console'
 
-describe "Result.display" do
+RSpec.describe "Result.display" do
   let(:console) { instance_double("Console", :puts => nil, :line_break => nil) }
   let(:drawn_board) { board = Board.from_a(["X", "X", "Y",
                                             "Y" ,"Y", "X",

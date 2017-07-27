@@ -1,0 +1,3 @@
+class HumanVsHuman
+
+end
