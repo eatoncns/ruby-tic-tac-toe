@@ -26,7 +26,7 @@ class Human
       if board.get_mark(space).empty?
         space
       else
-        get_space_choice(board.size)
+        get_empty_space(board)
       end
     end
 
