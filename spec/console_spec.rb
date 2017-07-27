@@ -13,6 +13,22 @@ RSpec.describe Console do
       expect(output.string).to eq test_string
     end
   end
+
+  describe "#print" do
+    it "writes input string to output" do
+      test_string = "Parzival!"
+      console.print(test_string)
+      expect(output.string).to eq test_string
+    end
+  end
+
+  describe "#puts" do
+    it "writes input string to output adding newline" do
+      test_string = "Parzival!"
+      console.puts(test_string)
+      expect(output.string).to eq test_string + "\n"
+    end
+  end
   
   describe "#get_string" do
     it "gets string from input" do

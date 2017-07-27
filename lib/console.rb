@@ -8,6 +8,14 @@ class Console
     @output.print(string)
   end
 
+  def print(string)
+    @output.print(string)
+  end
+
+  def puts(string)
+    @output.puts(string)
+  end
+
   def get_string
     @input.gets.chomp
   end
