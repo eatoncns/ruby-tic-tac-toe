@@ -5,7 +5,7 @@ require 'computer'
 
 describe HumanVsComputer do
   before(:each) do
-    @console = instance_double("Console", :print => nil)
+    @console = instance_double("Console", :print => nil, :line_break => nil)
     allow(@console).to receive(:get_string).and_return("Bob", "y")
     @hvc = HumanVsComputer.new(@console)
   end
