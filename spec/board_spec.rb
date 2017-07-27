@@ -3,11 +3,11 @@ require 'board'
 RSpec.describe Board do
 
   let(:board) { Board.new }
-  let(:drawn_board) { Board.from_a ["X", "X", "Y",
-                                    "Y" ,"Y", "X",
-                                    "X", "X", "Y"] }
-  let(:in_progress_board) { Board.from_a ["X", "", "Y",
-                                          "Y", "", "",
+  let(:drawn_board) { Board.from_a ["X", "X", "O",
+                                    "O" ,"O", "X",
+                                    "X", "X", "O"] }
+  let(:in_progress_board) { Board.from_a ["X", "", "O",
+                                          "O", "", "",
                                           "X", "", ""] }
 
   describe "#size" do
@@ -89,18 +89,18 @@ RSpec.describe Board do
     context "when board has been won by X" do
       it "returns X" do
         board = Board.from_a(["X", "X", "X",
-                              "Y", "Y", "",
+                              "O", "O", "",
                                "", "", ""])
         expect(board.winning_mark).to eq "X"
       end
     end
 
-    context "when board has been won by Y" do
-      it "returns Y" do
-        board = Board.from_a(["Y", "X", "X",
-                              "X", "Y", "",
-                               "", "", "Y"])
-        expect(board.winning_mark).to eq "Y"
+    context "when board has been won by O" do
+      it "returns O" do
+        board = Board.from_a(["O", "X", "X",
+                              "X", "O", "",
+                               "", "", "O"])
+        expect(board.winning_mark).to eq "O"
       end
     end
 
@@ -133,9 +133,26 @@ RSpec.describe Board do
     context "when full board has been won" do
       it "returns false" do
         board = Board.from_a(["X", "X", "X",
-                              "X", "Y", "Y",
-                              "Y", "Y", "X"])
+                              "X", "O", "O",
+                              "O", "O", "X"])
         expect(board.drawn?).to eq false
+      end
+    end
+  end
+
+  describe "#empty_spaces" do
+    context "with full board" do
+      it "returns empty array" do
+        expect(drawn_board.empty_spaces).to eq []
+      end
+    end
+
+    context "with in partially filled board" do
+      it "returns empty spaces" do
+        board = Board.from_a(["X", "", "O",
+                               "", "X", "",
+                              "O", "X", ""])
+        expect(board.empty_spaces).to eq [2, 4, 6, 9]
       end
     end
   end

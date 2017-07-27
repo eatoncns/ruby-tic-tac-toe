@@ -33,6 +33,10 @@ class Board
     end
     winning_line.first
   end
+
+  def empty_spaces
+    (1..@size).select { |space| get_mark(space).empty? }
+  end
   
   def random_space
     (1..@size).to_a.sample

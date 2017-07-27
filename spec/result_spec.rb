@@ -2,16 +2,16 @@ require 'result'
 require 'board'
 require 'console'
 
-describe "Result.display" do
+RSpec.describe "Result.display" do
   let(:console) { instance_double("Console", :puts => nil, :line_break => nil) }
-  let(:drawn_board) { board = Board.from_a(["X", "X", "Y",
-                                            "Y" ,"Y", "X",
-                                            "X", "X", "Y"]) }
+  let(:drawn_board) { board = Board.from_a(["X", "X", "O",
+                                            "O" ,"O", "X",
+                                            "X", "X", "O"]) }
 
   context "when a player has won game" do
     it "congratulates winning player" do
       board = Board.from_a(["X", "X", "X",
-                            "Y", "Y", "",
+                            "O", "O", "",
                              "", "", ""])
       expect(console).to receive(:puts).with("X wins! Congrats X")
       Result.display(board, console)
@@ -34,11 +34,11 @@ describe "Result.display" do
 
   it "displays final board state" do
     board_output = "|---|---|---|\n" +
-                   "| X | X | Y |\n" +
+                   "| X | X | O |\n" +
                    "|---|---|---|\n" +
-                   "| Y | Y | X |\n" +
+                   "| O | O | X |\n" +
                    "|---|---|---|\n" +
-                   "| X | X | Y |\n" +
+                   "| X | X | O |\n" +
                    "|---|---|---|\n"
     expect(console).to receive(:puts).with(board_output)
     Result.display(drawn_board, console)
