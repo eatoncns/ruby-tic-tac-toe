@@ -29,6 +29,57 @@ RSpec.describe Prompt do
     end
   end
 
+  describe ".for_string" do
+    let(:console) { instance_double("Console", { :print => nil, :get_string => "blah" }) }
+
+    it "outputs message" do
+      expect(console).to receive(:print).with("Input a thing: ")
+      Prompt.for_string(console, "Input a thing")
+    end
+
+    it "returns input string" do
+      expect(Prompt.for_string(console, "Whatever")).to eq "blah"
+    end
+  end
+
+  describe ".for_yes_no" do
+    let(:console) { instance_double("Console", { :print => nil, :puts => nil, :get_string => "y" }) }
+    
+    it "outputs question with added options" do
+      expect(console).to receive(:print).with("go? (y/n): ")
+      Prompt.for_yes_no(console, "go?")
+    end
+
+    context "when player answers y" do
+      it "returns true" do
+        expect(Prompt.for_yes_no(console, "go?")).to be true
+      end
+    end
+
+    context "when player answers n" do
+      it "returns false" do
+        allow(console).to receive(:get_string).and_return("n")
+        expect(Prompt.for_yes_no(console, "go?")).to be false
+      end
+    end
+
+    ["1", "yes", "agr"].each do |input|
+      context "when player enters invalid answer #{input}" do
+        it "outputs error" do
+          allow(console).to receive(:get_string).and_return(input, "y")
+          expect(console).to receive(:puts).with("Answer must be y or n")
+          Prompt.for_yes_no(console, "go?")
+        end
+
+        it "prompts again" do
+          allow(console).to receive(:get_string).and_return(input, "y")
+          expect(console).to receive(:print).with(/go?/).exactly(2).times
+          Prompt.for_yes_no(console, "go?")
+        end
+      end
+    end
+  end
+
   describe ".play_again?" do
     let(:yes_answer) { "y" }
     let(:console) { instance_double("Console", { :get_string => yes_answer, :print => nil, :puts => nil, :line_break => nil}) }
