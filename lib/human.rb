@@ -9,6 +9,7 @@ class Human
     @mark = mark
     @name = name
     @console = console
+    @prompt = Prompt.new(console)
   end 
 
   def choose_space(board)
@@ -33,6 +34,6 @@ class Human
     end
 
     def get_space_choice(max_space)
-      Prompt.for_int_in_range(@console, "[#{@name}] Choose space", (1..max_space))
+      @prompt.for_int_in_range("[#{@name}] Choose space", (1..max_space))
     end    
 end
