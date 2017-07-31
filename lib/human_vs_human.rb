@@ -3,6 +3,7 @@ require_relative 'prompt'
 class HumanVsHuman
   def initialize(console)
     @console = console
+    @prompt = Prompt.new(console)
   end
 
   def configure
@@ -23,6 +24,6 @@ class HumanVsHuman
     end
 
     def get_name(player_num)
-      Prompt.for_string(@console, "Enter player #{player_num} name")
+      @prompt.for_string("Enter player #{player_num} name")
     end
 end

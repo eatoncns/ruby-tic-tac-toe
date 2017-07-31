@@ -9,9 +9,10 @@ require_relative '../lib/prompt'
 require_relative '../lib/game_mode'
 
 console = Console.new
+game_mode = GameMode.new(console)
 loop do
   board = Board.new
-  players = GameMode.select(console)
+  players = game_mode.select()
   player_one, player_two = players.configure 
   game = Game.new(board, player_one, player_two)
   until game.game_over?
