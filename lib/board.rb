@@ -1,3 +1,5 @@
+require_relative 'board'
+
 class Board
   attr_reader :size
   attr_reader :dimension
@@ -51,6 +53,13 @@ class Board
     (1..@size).each_slice(@dimension)
   end
 
+
+  def self.with_move(board, space, mark)
+    board.set_mark(space, mark)
+    yield
+  ensure
+    board.remove_mark(space)
+  end
   
   def self.from_a(marks)
     board = Board.new
