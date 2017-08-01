@@ -2,11 +2,13 @@ require_relative 'mark'
 require_relative 'board'
 
 class Negamax
+  private_class_method :new
+  
   MAX_VALUE = 100
   VALUE_BOUND = MAX_VALUE + 1
   
   def self.value_to_mark(mark, board)
-    negamax = Negamax.new(board)
+    negamax = new(board)
     negamax.value_to_mark_at(mark, 0, -VALUE_BOUND, VALUE_BOUND)
   end
   
@@ -17,12 +19,12 @@ class Negamax
       max_next_move_value(mark, depth, alpha, beta)
     end
   end
+  
+  def initialize(board)
+    @board = board
+  end
 
   private
-    def initialize(board)
-      @board = board
-    end
-
     def terminal_value(mark, depth)
       if @board.drawn?
         return 0
