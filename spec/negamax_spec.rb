@@ -23,4 +23,18 @@ RSpec.describe Negamax do
     expect(Negamax.value_to_mark("X", board)).to eq 0
     expect(Negamax.value_to_mark("O", board)).to eq 0 
   end
+
+  it "subtracts number of marks needed to end game from winning score" do
+    board = Board.from_a(["X", "X", "",
+                          "O", "O", "",
+                           "", "", ""])
+    expect(Negamax.value_to_mark("X", board)).to eq Negamax::MAX_VALUE - 1
+  end
+
+  it "add number of marks needed to end game to losing score" do
+    board = Board.from_a(["", "", "O",
+                          "O", "X", "",
+                          "X", "", "X"])
+    expect(Negamax.value_to_mark("O", board)).to eq -Negamax::MAX_VALUE + 2
+  end
 end
