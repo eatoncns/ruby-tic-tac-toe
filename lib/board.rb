@@ -13,6 +13,11 @@ class Board
     @board[space-1] = mark
   end
 
+  def remove_mark(space)
+    validate_space(space)
+    @board[space-1] = ""
+  end
+
   def get_mark(space)
     validate_space(space)
     @board[space-1]

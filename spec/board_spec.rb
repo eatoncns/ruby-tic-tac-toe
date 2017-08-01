@@ -54,6 +54,33 @@ RSpec.describe Board do
     end 
   end
 
+  describe "#remove_mark" do
+    context "when space is populated" do
+      it "removes space" do
+        space = board.random_space()
+        board.set_mark(space, "X")
+        board.remove_mark(space)
+        expect(board.get_mark(space).empty?).to be true
+      end
+    end
+
+    context "when space is empty" do
+      it "leaves space empty" do
+        space = board.random_space()
+        board.remove_mark(space)
+        expect(board.get_mark(space).empty?).to be true
+      end
+    end
+    
+    [-3, 0, 10].each do |space|
+      context "with invalid space #{space} input" do
+        it "raises an IndexError" do
+          expect{board.remove_mark(space)}.to raise_error(IndexError)
+        end
+      end
+    end 
+  end
+
   describe "#game_over?" do
     context "with a new board" do
       it "returns false" do

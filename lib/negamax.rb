@@ -43,7 +43,7 @@ class Negamax
     def value_of_move(mark, space, depth)
       @board.set_mark(space, mark)
       value = -value_to_mark_at(opponent(mark), depth+1)
-      @board.set_mark(space, "")
+      @board.remove_mark(space)
       value
     end
 
