@@ -14,10 +14,7 @@ loop do
   board = Board.new
   players = game_mode.select()
   player_one, player_two = players.configure 
-  game = Game.new(board, player_one, player_two)
-  until game.game_over?
-    game.take_turn
-  end
+  Game.play(board, player_one, player_two)
   Result.display(board, console)
   break if !Prompt.play_again?(console)
 end

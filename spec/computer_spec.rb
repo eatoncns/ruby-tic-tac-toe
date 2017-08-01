@@ -1,6 +1,7 @@
 require 'computer'
 require 'board'
 require 'console'
+require 'game'
 
 RSpec.describe Computer do
   let(:console) { instance_double("Console", :puts => nil, :line_break => nil) }
@@ -41,6 +42,18 @@ RSpec.describe Computer do
                             "", "X", "",
                             "", "O", "X"])
       expect(computer.choose_space(board)).to eq 3 
+    end
+  end
+
+  describe "full game" do
+    let(:other_computer) { Computer.new("O", "Rickon", console) }
+    let(:board) { Board.new }
+
+    context "when computer is playing computer" do
+      it "ends in draw" do
+        Game.play(board, computer, other_computer)
+        expect(board.drawn?).to be true 
+      end 
     end
   end
 end

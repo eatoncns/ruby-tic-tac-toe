@@ -1,4 +1,11 @@
 class Game
+  def self.play(board, player_one, player_two)
+    game = new(board, player_one, player_two)
+    until game.over?
+      game.take_turn()
+    end
+  end
+  
   def initialize(board, player_one, player_two)
     @board = board
     @current_player = player_one
@@ -11,7 +18,7 @@ class Game
     @current_player, @next_player = @next_player, @current_player
   end
 
-  def game_over?
+  def over?
     @board.game_over?
   end
 end
