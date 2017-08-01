@@ -20,8 +20,8 @@ class Computer
     Move = Struct.new(:space, :value)
 
     def get_space(board)
-      move_values = board.empty_spaces.collect { |space| Move.new(space, value_of_move(board, space)) }
-      best_move = move_values.max { |a, b| a.value <=> b.value }
+      moves = board.empty_spaces.collect { |space| Move.new(space, value_of_move(board, space)) }
+      best_move = moves.max { |a, b| a.value <=> b.value }
       best_move.space
     end
 
