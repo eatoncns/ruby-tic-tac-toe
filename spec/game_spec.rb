@@ -37,10 +37,10 @@ RSpec.describe Game do
     end
   end
 
-  describe "#game_over?" do
+  describe "#over?" do
     context "when board is not in game over state" do
       it "returns false" do
-        expect(@game.game_over?).to be false
+        expect(@game.over?).to be false
       end
     end
 
@@ -50,7 +50,7 @@ RSpec.describe Game do
                               "O" ,"O", "X",
                               "X", "X", "O"])
         @game = Game.new(board, @player_one, @player_two)
-        expect(@game.game_over?).to be true
+        expect(@game.over?).to be true
       end
     end
   end
