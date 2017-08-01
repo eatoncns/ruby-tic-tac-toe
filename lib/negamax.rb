@@ -1,3 +1,6 @@
+require_relative 'mark'
+require_relative 'board'
+
 class Negamax
   MAX_VALUE = 100
   VALUE_BOUND = MAX_VALUE + 1
@@ -41,13 +44,8 @@ class Negamax
     end
 
     def value_of_move(mark, space, depth)
-      @board.set_mark(space, mark)
-      value = -value_to_mark_at(opponent(mark), depth+1)
-      @board.remove_mark(space)
-      value
-    end
-
-    def opponent(mark)
-      (mark == "X") ? "O" : "X"
+      Board.with_move(@board, space, mark) do
+        -value_to_mark_at(Mark.opponent(mark), depth+1)   
+      end
     end
 end

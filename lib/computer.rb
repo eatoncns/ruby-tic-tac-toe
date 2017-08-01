@@ -1,4 +1,5 @@
 require_relative 'negamax'
+require_relative 'mark'
 
 class Computer
   attr_reader :mark
@@ -25,16 +26,11 @@ class Computer
     end
 
     def value_of_move(board, space)
-      board.set_mark(space, @mark)
-      value = -Negamax.value_to_mark(opponent(@mark), board)
-      board.remove_mark(space)
-      value
+      Board.with_move(board, space, @mark) do
+        -Negamax.value_to_mark(Mark.opponent(@mark), board)
+      end
     end 
-
-    def opponent(mark)
-      (mark == "X") ? "O" : "X"
-    end
-
+    
     def output_choice(space)
       @console.puts("[#{@name}] Chooses space #{space}")
       @console.line_break
