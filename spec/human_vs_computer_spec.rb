@@ -19,12 +19,7 @@ describe HumanVsComputer do
     @hvc.configure 
   end
 
-  it "asks player whether they want to go first" do
-    expect(@console).to receive(:print).with("Do you want to go first? (y/n): ")
-    @hvc.configure
-  end
-
-  context "when player wants to go first" do
+  context "when not configured for computer to go first" do
     it "returns human player first" do
       expect(@hvc.configure[0]).to be_a Human
     end
@@ -46,9 +41,9 @@ describe HumanVsComputer do
     end
   end
 
-  context "when player wants to go second" do
+  context "when configured for computer to go first" do
     before(:each) do
-      allow(@console).to receive(:get_string).and_return("Bob", "n")
+      @hvc.computer_plays_first()
     end
     
     it "returns computer player first" do

@@ -4,7 +4,8 @@ require_relative 'human_vs_human'
 
 class GameMode
   HUMAN_VS_COMPUTER = 1
-  HUMAN_VS_HUMAN = 2
+  COMPUTER_VS_HUMAN = 2
+  HUMAN_VS_HUMAN = 3
 
   def initialize(console)
     @console = console
@@ -13,10 +14,15 @@ class GameMode
 
   def select
     mode = select_mode()
-    if mode == HUMAN_VS_COMPUTER
+    case mode
+    when HUMAN_VS_COMPUTER
       HumanVsComputer.new(@console)
+    when COMPUTER_VS_HUMAN
+      mode_config = HumanVsComputer.new(@console)
+      mode_config.computer_plays_first()
+      mode_config
     else
-      HumanVsHuman.new(@console)
+      HumanVsHuman.new(@console) 
     end
   end
 
@@ -29,11 +35,12 @@ class GameMode
     def output_options
       @console.puts("Game modes:\n" +
                    "  1. Human vs Computer\n" +
-                   "  2. Human vs Human\n")
+                   "  2. Computer vs Human\n" +
+                   "  3. Human vs Human\n")
     end
 
     def prompt_for_mode
-      mode = @prompt.for_int_in_range("Select game mode", (1..2))
+      mode = @prompt.for_int_in_range("Select game mode", (1..3))
       @console.line_break
       mode
     end
