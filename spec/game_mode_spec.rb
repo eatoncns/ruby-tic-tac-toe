@@ -6,7 +6,7 @@ require 'human_vs_human'
 RSpec.describe GameMode do
   let(:console) { instance_double("Console", { :puts => nil, :print => nil, :get_int => 1, :line_break => nil }) }
   let(:game_mode) { GameMode.new(console) }
-  let(:prompt) { "Select game mode (1-2): " }
+  let(:prompt) { "Select game mode (1-3): " }
 
   it "outputs game mode options" do
     options = "Game modes:\n" +
@@ -36,7 +36,7 @@ RSpec.describe GameMode do
     end
   end
 
-  [-1, 0, 3].each do |input|
+  [-1, 0, 4].each do |input|
     context "when input is invalid selection #{input}" do
       it "prompts again" do
         allow(console).to receive(:get_int).and_return(input, 1)

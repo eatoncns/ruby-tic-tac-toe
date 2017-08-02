@@ -34,7 +34,7 @@ class GameMode
     end
 
     def prompt_for_mode
-      mode = @prompt.for_int_in_range("Select game mode", (1..2))
+      mode = @prompt.for_int_in_range("Select game mode", (1..3))
       @console.line_break
       mode
     end
