@@ -11,7 +11,8 @@ RSpec.describe GameMode do
   it "outputs game mode options" do
     options = "Game modes:\n" +
               "  1. Human vs Computer\n" +
-              "  2. Human vs Human\n"
+              "  2. Computer vs Human\n" +
+              "  3. Human vs Human\n"
     expect(console).to receive(:puts).with(options)
     game_mode.select()
   end

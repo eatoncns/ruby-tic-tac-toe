@@ -29,7 +29,8 @@ class GameMode
     def output_options
       @console.puts("Game modes:\n" +
                    "  1. Human vs Computer\n" +
-                   "  2. Human vs Human\n")
+                   "  2. Computer vs Human\n" +
+                   "  3. Human vs Human\n")
     end
 
     def prompt_for_mode
