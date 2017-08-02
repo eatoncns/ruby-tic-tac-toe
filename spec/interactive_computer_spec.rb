@@ -32,4 +32,12 @@ RSpec.describe InteractiveComputer do
       expect(interactive_computer.choose_space(board)).to eq 5
     end
   end
+
+  describe "#mark" do
+    it "returns mark from wrapped computer" do
+      expect(computer).to receive(:mark).and_return("O")
+      expect(interactive_computer.mark).to eq "O"
+      
+    end
+  end
 end

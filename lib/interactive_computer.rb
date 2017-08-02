@@ -6,6 +6,10 @@ class InteractiveComputer
     @console = console
   end
 
+  def mark
+    @computer.mark
+  end
+
   def choose_space(board)
     display_board(board)
     wait_for_user()
