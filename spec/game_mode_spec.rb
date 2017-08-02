@@ -2,17 +2,19 @@ require 'game_mode'
 require 'console'
 require 'human_vs_computer'
 require 'human_vs_human'
+require 'computer_vs_computer'
 
 RSpec.describe GameMode do
   let(:console) { instance_double("Console", { :puts => nil, :print => nil, :get_int => 1, :line_break => nil }) }
   let(:game_mode) { GameMode.new(console) }
-  let(:prompt) { "Select game mode (1-3): " }
+  let(:prompt) { "Select game mode (1-4): " }
 
   it "outputs game mode options" do
     options = "Game modes:\n" +
               "  1. Human vs Computer\n" +
               "  2. Computer vs Human\n" +
-              "  3. Human vs Human\n"
+              "  3. Human vs Human\n" +
+              "  4. Computer vs Computer\n"
     expect(console).to receive(:puts).with(options)
     game_mode.select()
   end
@@ -55,8 +57,15 @@ RSpec.describe GameMode do
       expect(game_mode.select()).to be_a HumanVsHuman
     end
   end
+  
+  context "when player selects Computer vs Computer" do
+    it "returns appropriate configuration class" do
+      allow(console).to receive(:get_int).and_return GameMode::COMPUTER_VS_COMPUTER
+      expect(game_mode.select()).to be_a ComputerVsComputer 
+    end
+  end
 
-  [-1, 0, 4].each do |input|
+  [-1, 0, 5].each do |input|
     context "when input is invalid selection #{input}" do
       it "prompts again" do
         allow(console).to receive(:get_int).and_return(input, 1)
