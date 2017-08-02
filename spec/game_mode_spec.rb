@@ -27,6 +27,26 @@ RSpec.describe GameMode do
       allow(console).to receive(:get_int).and_return GameMode::HUMAN_VS_COMPUTER
       expect(game_mode.select()).to be_a HumanVsComputer
     end
+
+    it "sets configuration so computer plays second" do
+      allow(console).to receive(:get_int).and_return GameMode::HUMAN_VS_COMPUTER
+      mode = game_mode.select()
+      expect(mode.computer_first?).to be false 
+    end
+  end
+
+  context "when player selects Computer vs Human" do
+    it "returns appropriate configuration class" do
+      allow(console).to receive(:get_int).and_return GameMode::COMPUTER_VS_HUMAN
+      expect(game_mode.select()).to be_a HumanVsComputer
+    end
+
+    it "sets configuration so computer plays first" do
+      allow(console).to receive(:get_int).and_return GameMode::COMPUTER_VS_HUMAN
+      mode = game_mode.select()
+      expect(mode.computer_first?).to be true 
+    end
+    
   end
 
   context "when player selects Human vs Human" do
