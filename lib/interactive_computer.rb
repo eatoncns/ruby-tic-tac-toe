@@ -1,4 +1,4 @@
-require 'board_display'
+require_relative 'board_display'
 
 class InteractiveComputer
   def initialize(computer, console)
@@ -21,8 +21,8 @@ class InteractiveComputer
   end
 
   def wait_for_user
-    @console.line_break
     @console.print("Press enter to continue")
     @console.get_string()
+    @console.line_break
   end
 end

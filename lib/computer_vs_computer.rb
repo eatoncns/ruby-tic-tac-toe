@@ -1,5 +1,5 @@
-require 'computer'
-require 'interactive_computer'
+require_relative 'computer'
+require_relative 'interactive_computer'
 
 class ComputerVsComputer
   def initialize(console)
