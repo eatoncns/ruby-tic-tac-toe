@@ -16,6 +16,13 @@ RSpec.describe Board do
         expect(board.size).to eq 9
       end
     end
+
+    context "with dimension 4 board" do
+      it "is 16" do
+        four_board = Board.new(4)
+        expect(four_board.size).to eq 16
+      end
+    end
   end
   
   describe "#get_mark" do
