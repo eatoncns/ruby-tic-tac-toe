@@ -1,19 +1,19 @@
 #!/usr/bin/ruby
 
 require_relative '../lib/game'
-require_relative '../lib/board'
-require_relative '../lib/human'
 require_relative '../lib/result'
 require_relative '../lib/console'
 require_relative '../lib/prompt'
 require_relative '../lib/game_mode'
+require_relative '../lib/board_size.rb'
 
 console = Console.new
 game_mode = GameMode.new(console)
+board_size = BoardSize.new(console)
 loop do
-  board = Board.new
-  players = game_mode.select()
-  player_one, player_two = players.configure 
+  mode = game_mode.select()
+  board = board_size.select()
+  player_one, player_two = mode.configure()
   Game.play(board, player_one, player_two)
   Result.display(board, console)
   break if !Prompt.play_again?(console)
