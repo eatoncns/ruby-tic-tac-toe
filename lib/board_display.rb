@@ -23,8 +23,20 @@ class BoardDisplay
       space_row.each do |space|
         mark = board.get_mark(space)
         mark = if mark.empty? then space.to_s else mark end
-        row_output << "| #{mark} "
+        row_output << build_cell(mark)
       end
       row_output << "|\n"
+    end
+
+    def self.build_cell(mark)
+      cell = "|"
+      if needs_centring(mark)
+        cell << " "
+      end
+      cell << "#{mark} "
+    end
+
+    def self.needs_centring(mark)
+      mark.length == 1
     end
 end

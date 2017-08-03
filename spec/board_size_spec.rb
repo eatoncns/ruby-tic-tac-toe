@@ -2,7 +2,7 @@ require 'board_size'
 require 'console'
 
 RSpec.describe BoardSize do
-  let(:console) { instance_double("Console", { :puts => nil, :print => nil, :get_int => 1 }) }
+  let(:console) { instance_double("Console", { :puts => nil, :print => nil, :get_int => 1, :line_break => nil }) }
   let(:board_size) { BoardSize.new(console) }
 
   it "outputs board size options" do

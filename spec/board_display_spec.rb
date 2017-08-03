@@ -27,4 +27,18 @@ RSpec.describe "BoardDisplay" do
                    "|---|---|---|\n"
     expect(BoardDisplay.as_string(board)).to eq board_output
   end
+
+  it "left aligns double digit space indices" do
+    board = Board.new(4)
+    board_output = "|---|---|---|---|\n" +
+                   "| 1 | 2 | 3 | 4 |\n" +
+                   "|---|---|---|---|\n" +
+                   "| 5 | 6 | 7 | 8 |\n" +
+                   "|---|---|---|---|\n" +
+                   "| 9 |10 |11 |12 |\n" +
+                   "|---|---|---|---|\n" +
+                   "|13 |14 |15 |16 |\n" +
+                   "|---|---|---|---|\n"
+    expect(BoardDisplay.as_string(board)).to eq board_output
+  end
 end

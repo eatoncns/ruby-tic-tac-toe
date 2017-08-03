@@ -17,6 +17,7 @@ class BoardSize
                   "  1. 3x3\n" +
                   "  2. 4x4\n")
     selection = @prompt.for_int_in_range("Select board size", (1..2))
+    @console.line_break()
     (selection == 1) ? 3 : 4
   end
 end
