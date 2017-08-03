@@ -1,4 +1,5 @@
 require_relative 'board'
+require_relative 'zobrist_hash'
 
 class Board
   attr_reader :size
@@ -8,15 +9,18 @@ class Board
     @dimension = dimension
     @size = dimension*dimension
     @board = Array.new(@size, "")
+    @state_hash = ZobristHash.with_random_bit_strings()
   end
 
   def set_mark(space, mark)
     validate_space(space)
+    @state_hash.update(space, mark)
     @board[space-1] = mark
   end
 
   def remove_mark(space)
     validate_space(space)
+    @state_hash.update(space, @board[space-1])
     @board[space-1] = ""
   end
 
@@ -68,6 +72,10 @@ class Board
       board.set_mark(space, mark)
     end
     board
+  end
+
+  def state_hash
+    @state_hash.get()
   end
   
   private

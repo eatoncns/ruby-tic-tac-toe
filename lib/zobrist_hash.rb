@@ -1,4 +1,12 @@
 class ZobristHash
+  FIXNUM_MAX = (2**(0.size * 8 -2) -1)
+
+  @@bit_strings = Array.new(32) { Random.rand(FIXNUM_MAX) }
+  
+  def self.with_random_bit_strings
+    new(@@bit_strings)
+  end
+
   def initialize(bit_strings)
     @bit_strings = bit_strings
     @mark_index = bit_strings.length / 2

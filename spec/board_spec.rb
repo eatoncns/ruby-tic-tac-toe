@@ -190,4 +190,38 @@ RSpec.describe Board do
       end
     end
   end
+
+  describe "#state_hash" do
+    it "returns same value for boards in same state" do
+      board_state = ["X", "O", "",
+                     "X", "", "",
+                     "O", "", "X"]
+      board = Board.from_a(board_state)
+      other_board = Board.from_a(board_state)
+      expect(board.state_hash()).to eq other_board.state_hash()
+    end
+
+    it "returns different value for boards in different state" do
+        board = Board.from_a(["X", "", "O",
+                               "", "X", "",
+                              "O", "X", ""])
+        other_board = Board.from_a(["X", "", "O",
+                                     "", "X", "",
+                                    "O", "", ""])
+        expect(board.state_hash()).not_to eq other_board.state_hash()
+    end
+
+    it "returns same value for boards in same state regardless of how they got there" do
+        board = Board.new
+        board.set_mark(5, "X")
+        board.set_mark(9, "O")
+
+        other_board = Board.new
+        other_board.set_mark(6, "X")
+        other_board.set_mark(9, "O")
+        other_board.set_mark(5, "X")
+        other_board.remove_mark(6)
+        expect(board.state_hash()).to eq other_board.state_hash()
+    end
+  end
 end
