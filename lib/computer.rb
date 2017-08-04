@@ -8,6 +8,7 @@ class Computer
     @mark = mark
     @name = name
     @console = console
+    @transposition_table = {}
   end
 
   def choose_space(board)
@@ -27,7 +28,7 @@ class Computer
 
     def value_of_move(board, space)
       Board.with_move(board, space, @mark) do
-        -Negamax.value_to_mark(Mark.opponent(@mark), board)
+        -Negamax.value_to_mark(Mark.opponent(@mark), board, @transposition_table)
       end
     end 
     
