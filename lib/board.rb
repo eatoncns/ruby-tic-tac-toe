@@ -4,7 +4,8 @@ require_relative 'zobrist_hash'
 class Board
   attr_reader :size
   attr_reader :dimension
-  
+  attr_reader :spaces_marked 
+
   def initialize(dimension = 3) 
     @dimension = dimension
     @size = dimension*dimension

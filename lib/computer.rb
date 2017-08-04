@@ -21,6 +21,21 @@ class Computer
     Move = Struct.new(:space, :value)
 
     def get_space(board)
+      if opening_moves?(board)
+        return first_available_space(board)
+      end
+      strategic_space(board)
+    end
+
+    def opening_moves?(board)
+      (board.dimension > 3) && (board.spaces_marked <= board.dimension)
+    end
+
+    def first_available_space(board)
+      board.empty_spaces().first()
+    end
+
+    def strategic_space(board)
       moves = board.empty_spaces.collect { |space| Move.new(space, value_of_move(board, space)) }
       best_move = moves.max { |a, b| a.value <=> b.value }
       best_move.space

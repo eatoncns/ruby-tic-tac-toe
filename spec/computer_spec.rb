@@ -47,13 +47,15 @@ RSpec.describe Computer do
 
   describe "full game" do
     let(:other_computer) { Computer.new("O", "Rickon", console) }
-    let(:board) { Board.new }
 
-    context "when computer is playing computer" do
-      it "ends in draw" do
-        Game.play(board, computer, other_computer)
-        expect(board.drawn?).to be true 
-      end 
+    [3, 4].each do |dimension|
+      context "when computer is playing computer with board dimension #{dimension}" do
+        it "ends in draw" do
+          board = Board.new(dimension)
+          Game.play(board, computer, other_computer)
+          expect(board.drawn?).to be true 
+        end 
+      end
     end
   end
 end
