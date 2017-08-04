@@ -113,6 +113,7 @@ RSpec.describe Board do
       context "when player has taken all of line #{line}" do
         it "returns true" do
           line.each { |space| board.set_mark(space, "X") }
+          board.empty_spaces.take(2).each { |space| board.set_mark(space, "O") }
           expect(board.game_over?).to be true
         end
       end

@@ -10,17 +10,21 @@ class Board
     @size = dimension*dimension
     @board = Array.new(@size, "")
     @state_hash = ZobristHash.with_random_bit_strings()
+    @spaces_marked = 0
+    @min_spaces_for_win = dimension*2 - 1
   end
 
   def set_mark(space, mark)
     validate_space(space)
     @state_hash.update(space, mark)
+    @spaces_marked += 1
     @board[space-1] = mark
   end
 
   def remove_mark(space)
     validate_space(space)
     @state_hash.update(space, @board[space-1])
+    @spaces_marked -= 1
     @board[space-1] = ""
   end
 
@@ -30,6 +34,9 @@ class Board
   end
 
   def game_over?
+    if @spaces_marked < @min_spaces_for_win
+      return false
+    end
     winning_line_present? || all_spaces_taken?
   end
 
@@ -68,8 +75,10 @@ class Board
   def self.from_a(marks)
     board = Board.new
     marks.each_with_index do |mark, index|
-      space = index + 1
-      board.set_mark(space, mark)
+      if !mark.empty?
+        space = index + 1
+        board.set_mark(space, mark)
+      end
     end
     board
   end
@@ -118,6 +127,6 @@ class Board
     end
 
     def all_spaces_taken?
-      @board.all? { |mark| !mark.empty? }
+      @spaces_marked == @size 
     end
 end
