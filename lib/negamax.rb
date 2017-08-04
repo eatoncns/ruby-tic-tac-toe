@@ -7,24 +7,48 @@ class Negamax
   MAX_VALUE = 100
   VALUE_BOUND = MAX_VALUE + 1
   
-  def self.value_to_mark(mark, board)
-    negamax = new(board)
+  def self.value_to_mark(mark, board, transposition_table)
+    negamax = new(board, transposition_table)
     negamax.value_to_mark_at(mark, 0, -VALUE_BOUND, VALUE_BOUND)
   end
   
   def value_to_mark_at(mark, depth, alpha, beta)
+    tt_value, tt_alpha, tt_beta = transposition_lookup(depth, alpha, beta)
+    if !tt_value.nil?
+      return tt_value
+    end
     if @board.game_over?
       terminal_value(mark, depth)
     else
-      max_next_move_value(mark, depth, alpha, beta)
+      max_next_move_value(mark, depth, alpha, tt_alpha, tt_beta)
     end
   end
   
-  def initialize(board)
+  def initialize(board, transposition_table)
     @board = board
+    @transposition_table = transposition_table
   end
 
   private
+    def transposition_lookup(depth, alpha, beta)
+      if @transposition_table.has_key?(@board.state_hash())
+        entry = @transposition_table[@board.state_hash()]
+        value = entry.value + (depth - entry.depth)
+        return lookup_result(entry, value, alpha, beta)
+      end
+      [nil, alpha, beta]
+    end
+
+    def lookup_result(entry, value, alpha, beta)
+      if entry.type == :exact
+        return [value, alpha, beta]
+      end
+      lookup_alpha = (entry.type == :lower_bound) ? [alpha, value].max : alpha
+      lookup_beta = (entry.type == :upper_bound) ? [beta, value].min : beta
+      lookup_value = value if lookup_alpha >= lookup_beta
+      [lookup_value, lookup_alpha, lookup_beta]
+    end
+
     def terminal_value(mark, depth)
       if @board.drawn?
         return 0
@@ -36,7 +60,7 @@ class Negamax
       -MAX_VALUE + depth
     end
 
-    def max_next_move_value(mark, depth, alpha, beta)
+    def max_next_move_value(mark, depth, orig_alpha, alpha, beta)
       max_value = -VALUE_BOUND
       @board.empty_spaces.each do |space|
         move_value = value_of_move(mark, space, depth, alpha, beta)
@@ -46,6 +70,7 @@ class Negamax
           break
         end
       end
+      store_transposition_entry(max_value, orig_alpha, beta, depth)
       max_value
     end
 
@@ -53,5 +78,21 @@ class Negamax
       Board.with_move(@board, space, mark) do
         -value_to_mark_at(Mark.opponent(mark), depth+1, -beta, -alpha)   
       end
+    end
+
+    TranspositionEntry = Struct.new(:type, :value, :depth)
+
+    def store_transposition_entry(value, orig_alpha, beta, depth)
+      entry = TranspositionEntry.new
+      entry.value = value
+      entry.depth = depth
+      if value <= orig_alpha
+        entry.type = :upper_bound
+      elsif value >= beta
+        entry.type = :lower_bound
+      else
+        entry.type = :exact
+      end
+      @transposition_table[@board.state_hash()] = entry
     end
 end
