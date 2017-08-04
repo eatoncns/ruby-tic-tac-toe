@@ -119,7 +119,7 @@ class Board
     end
 
     def winning_line?(line)
-        !line.first.empty? && line.all? { |mark| mark == line.first } 
+      !line.first.empty? && line.all? { |mark| mark == line.first } 
     end
 
     def winning_line_present?
