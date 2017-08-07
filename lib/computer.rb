@@ -1,5 +1,6 @@
 require_relative 'negamax'
 require_relative 'mark'
+require_relative 'transposition_table'
 
 class Computer
   attr_reader :mark
@@ -8,7 +9,7 @@ class Computer
     @mark = mark
     @name = name
     @console = console
-    @transposition_table = {}
+    @transposition_table = TranspositionTable.new
   end
 
   def choose_space(board)

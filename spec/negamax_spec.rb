@@ -1,8 +1,9 @@
 require 'negamax'
 require 'board'
+require 'transposition_table'
 
 RSpec.describe Negamax do
-  let(:transposition_table) { {} }
+  let(:transposition_table) { TranspositionTable.new }
 
   it "returns maximum value when board is won for mark" do
     board = Board.from_a(["X", "X", "X",
