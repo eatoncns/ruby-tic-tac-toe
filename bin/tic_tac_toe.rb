@@ -1,5 +1,6 @@
 #!/usr/bin/ruby
 
+require_relative '../lib/intro.rb'
 require_relative '../lib/game'
 require_relative '../lib/result'
 require_relative '../lib/console'
@@ -8,6 +9,8 @@ require_relative '../lib/game_mode'
 require_relative '../lib/board_size.rb'
 
 console = Console.new
+intro = Intro.new(console)
+intro.display()
 game_mode = GameMode.new(console)
 board_size = BoardSize.new(console)
 loop do
