@@ -32,21 +32,9 @@ class Negamax
   private
     def transposition_lookup(depth, alpha, beta)
       if @transposition_table.has_key?(@board.state_hash())
-        entry = @transposition_table[@board.state_hash()]
-        value = entry.value + (depth - entry.depth)
-        return lookup_result(entry, value, alpha, beta)
+        return @transposition_table.parameters_for(@board.state_hash(), depth, alpha, beta)
       end
       [nil, alpha, beta]
-    end
-
-    def lookup_result(entry, value, alpha, beta)
-      if entry.type == :exact
-        return [value, alpha, beta]
-      end
-      lookup_alpha = (entry.type == :lower_bound) ? [alpha, value].max : alpha
-      lookup_beta = (entry.type == :upper_bound) ? [beta, value].min : beta
-      lookup_value = value if lookup_alpha >= lookup_beta
-      [lookup_value, lookup_alpha, lookup_beta]
     end
 
     def terminal_value(mark, depth)
@@ -80,19 +68,7 @@ class Negamax
       end
     end
 
-    TranspositionEntry = Struct.new(:type, :value, :depth)
-
     def store_transposition_entry(value, orig_alpha, beta, depth)
-      entry = TranspositionEntry.new
-      entry.value = value
-      entry.depth = depth
-      if value <= orig_alpha
-        entry.type = :upper_bound
-      elsif value >= beta
-        entry.type = :lower_bound
-      else
-        entry.type = :exact
-      end
-      @transposition_table[@board.state_hash()] = entry
+      @transposition_table.store_entry(@board.state_hash(), value, orig_alpha, beta, depth)
     end
 end
