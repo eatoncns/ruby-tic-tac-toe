@@ -1,10 +1,10 @@
 require 'human'
-require 'board'
+require 'ttt_core'
 
 RSpec.describe Human do
   let(:console) { instance_double("Console", { :get_int => 5, :puts => nil, :print => nil, :line_break => nil}) }
   let(:player) { Human.new("X", "Tyrion", console) }
-  let(:board) { Board.new }
+  let(:board) { TttCore::Board.new }
   let(:expected_prompt) { "[Tyrion] Choose space (1-9): " }
 
   describe "#choose_space" do

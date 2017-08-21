@@ -1,7 +1,7 @@
 require 'human_vs_computer'
 require 'console'
 require 'human'
-require 'computer'
+require 'console_computer'
 
 describe HumanVsComputer do
   before(:each) do
@@ -25,7 +25,7 @@ describe HumanVsComputer do
     end
 
     it "returns computer player second" do
-      expect(@hvc.configure[1]).to be_a Computer
+      expect(@hvc.configure[1]).to be_a ConsoleComputer
     end
 
     it "sets human mark to X" do
@@ -47,7 +47,7 @@ describe HumanVsComputer do
     end
     
     it "returns computer player first" do
-      expect(@hvc.configure[0]).to be_a Computer 
+      expect(@hvc.configure[0]).to be_a ConsoleComputer 
     end
     
     it "returns human player second" do

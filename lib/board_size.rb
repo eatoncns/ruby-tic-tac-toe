@@ -1,5 +1,5 @@
 require_relative 'prompt'
-require_relative 'board'
+require 'ttt_core'
 
 class BoardSize
   def initialize(console)
@@ -9,7 +9,7 @@ class BoardSize
 
   def select
     size = get_size()
-    Board.new(size)
+    TttCore::Board.new(size)
   end
 
   def get_size
