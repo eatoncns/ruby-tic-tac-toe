@@ -1,6 +1,6 @@
 require_relative 'prompt'
 require_relative 'human'
-require_relative 'computer'
+require_relative 'console_computer'
 
 class HumanVsComputer
   def initialize(console)
@@ -32,9 +32,9 @@ class HumanVsComputer
 
     def create_players(human_name, computer_name)
       if @computer_first
-        [Computer.new("X", computer_name, @console), Human.new("O", human_name, @console)]
+        [ConsoleComputer.new("X", computer_name, @console), Human.new("O", human_name, @console)]
       else
-        [Human.new("X", human_name, @console), Computer.new("O", computer_name, @console)]
+        [Human.new("X", human_name, @console), ConsoleComputer.new("O", computer_name, @console)]
       end
     end
 end

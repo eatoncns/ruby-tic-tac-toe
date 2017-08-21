@@ -1,12 +1,12 @@
 require 'interactive_computer'
 require 'console'
-require 'board'
+require 'ttt_core'
 
 RSpec.describe InteractiveComputer do
   let(:computer) { instance_double("Computer", { :mark => "X", :choose_space => 1 }) }
   let(:console) { instance_double("Console", { :puts => nil, :print => nil, :line_break => nil, :get_string => ""}) }
   let(:interactive_computer) { InteractiveComputer.new(computer, console) }
-  let(:board) { Board.new }
+  let(:board) { TttCore::Board.new }
   
   describe "#choose_space" do
     it "outputs pre-move board state" do

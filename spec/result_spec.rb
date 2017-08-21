@@ -1,18 +1,18 @@
 require 'result'
-require 'board'
 require 'console'
+require 'ttt_core'
 
 RSpec.describe "Result.display" do
   let(:console) { instance_double("Console", :puts => nil, :line_break => nil) }
-  let(:drawn_board) { board = Board.from_a(["X", "X", "O",
-                                            "O" ,"O", "X",
-                                            "X", "X", "O"]) }
+  let(:drawn_board) { board = TttCore::Board.from_a(["X", "X", "O",
+                                                     "O" ,"O", "X",
+                                                     "X", "X", "O"]) }
 
   context "when a player has won game" do
     it "congratulates winning player" do
-      board = Board.from_a(["X", "X", "X",
-                            "O", "O", "",
-                             "", "", ""])
+      board = TttCore::Board.from_a(["X", "X", "X",
+                                     "O", "O", "",
+                                     "", "", ""])
       expect(console).to receive(:puts).with("X wins! Congrats X")
       Result.display(board, console)
     end
@@ -27,7 +27,7 @@ RSpec.describe "Result.display" do
 
   context "when board is on progress" do
     it "raises ArgumentError" do
-      board = Board.new
+      board = TttCore::Board.new
       expect{Result.display(board, console)}.to raise_error(ArgumentError)
     end
   end

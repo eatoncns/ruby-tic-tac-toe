@@ -1,9 +1,9 @@
 require 'board_display'
-require 'board'
+require 'ttt_core'
 
 RSpec.describe "BoardDisplay" do
   it "returns string representation of empty board" do
-    board = Board.new
+    board = TttCore::Board.new
     board_output = "|---|---|---|\n" +
                    "| 1 | 2 | 3 |\n" +
                    "|---|---|---|\n" +
@@ -15,7 +15,7 @@ RSpec.describe "BoardDisplay" do
   end
 
   it "returns string representation of populated board" do
-    board = Board.from_a(["X", "", "X",
+    board = TttCore::Board.from_a(["X", "", "X",
                           "O", "", "",
                           "", "O", ""])
     board_output = "|---|---|---|\n" +
@@ -29,7 +29,7 @@ RSpec.describe "BoardDisplay" do
   end
 
   it "left aligns double digit space indices" do
-    board = Board.new(4)
+    board = TttCore::Board.new(4)
     board_output = "|---|---|---|---|\n" +
                    "| 1 | 2 | 3 | 4 |\n" +
                    "|---|---|---|---|\n" +
