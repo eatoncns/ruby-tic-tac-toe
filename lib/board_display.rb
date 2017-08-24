@@ -2,7 +2,7 @@ class BoardDisplay
   def self.as_string(board)
     display = ""
     divider = build_divider(board.dimension)
-    board.space_rows.each do |space_row|
+    space_rows(board).each do |space_row|
       display << divider
       display << build_row_output(board, space_row)
     end
@@ -10,6 +10,10 @@ class BoardDisplay
   end
 
   private
+    def self.space_rows(board)
+      (1..board.size).each_slice(board.dimension)
+    end
+
     def self.build_divider(dimension)
       divider = ""
       dimension.times do
